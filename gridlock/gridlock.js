@@ -25,7 +25,7 @@ if (Meteor.isServer) {
   Meteor.publish(null, function () {
     return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, interId: 1, score: 1}});
   });
-
+/*
   styleCount = 5;
   insertCar = function (intersectionId, quadrant, style) {
     chooseSkin = function () { 
@@ -43,7 +43,7 @@ if (Meteor.isServer) {
     // see how many cars are in the system
     // add cars until the number reaces maxCars
   };
-
+*/
   Meteor.startup(function () {
     // code to run on server at startup
 

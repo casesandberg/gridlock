@@ -25,8 +25,70 @@ Meteor.methods({
     });
   },
   testAddIntersection: function() {
-    Intersections.insert({
+    id1 = Intersections.insert({
+      roads: {},
+      moving: []
+    });
+    id2 = Intersections.insert({
+      roads: {},
+      moving: []
+    });
+    id3 = Intersections.insert({
+      roads: {},
+      moving: []
+    });
+    id4 = Intersections.insert({
+      roads: {},
+      moving: []
+    });
 
+    Intersections.update({_id: id1}, {
+      $set: {"roads.ne": {queue: [], connectionId: id2, type: 'player'}}
+    });
+    Intersections.update({_id: id1}, {
+      $set: {"roads.nw": {queue: [], connectionId: null, type: 'edge'}}
+    });
+    Intersections.update({_id: id1}, {
+      $set: {"roads.se": {queue: [], connectionId: id4, type: 'player'}}
+    });
+    Intersections.update({_id: id1}, {
+      $set: {"roads.sw": {queue: [], connectionId: null, type: 'edge'}}
+    });
+    Intersections.update({_id: id2}, {
+      $set: {"roads.ne": {queue: [], connectionId: null, type: 'edge'}}
+    });
+    Intersections.update({_id: id2}, {
+      $set: {"roads.nw": {queue: [], connectionId: null, type: 'edge'}}
+    });
+    Intersections.update({_id: id2}, {
+      $set: {"roads.se": {queue: [], connectionId: id3, type: 'player'}}
+    });
+    Intersections.update({_id: id2}, {
+      $set: {"roads.sw": {queue: [], connectionId: id1, type: 'player'}}
+    });
+    Intersections.update({_id: id3}, {
+      $set: {"roads.ne": {queue: [], connectionId: null, type: 'edge'}}
+    });
+    Intersections.update({_id: id3}, {
+      $set: {"roads.nw": {queue: [], connectionId: id2, type: 'player'}}
+    });
+    Intersections.update({_id: id3}, {
+      $set: {"roads.se": {queue: [], connectionId: null, type: 'edge'}}
+    });
+    Intersections.update({_id: id3}, {
+      $set: {"roads.sw": {queue: [], connectionId: id4, type: 'player'}}
+    });
+    Intersections.update({_id: id4}, {
+      $set: {"roads.ne": {queue: [], connectionId: id3, type: 'player'}}
+    });
+    Intersections.update({_id: id4}, {
+      $set: {"roads.nw": {queue: [], connectionId: id1, type: 'player'}}
+    });
+    Intersections.update({_id: id4}, {
+      $set: {"roads.se": {queue: [], connectionId: null, type: 'edge'}}
+    });
+    Intersections.update({_id: id4}, {
+      $set: {"roads.sw": {queue: [], connectionId: null, type: 'edge'}}
     });
   },
   testFlushCars: function() {
