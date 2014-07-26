@@ -1,0 +1,73 @@
+{
+  "intersections": [
+    {
+      "_id": "1hge6723yhb3782h",
+      "roads": {
+        "NE": {
+          "queue": ["redcar","greencar","bluecar"],
+          "interId": "12uy12t37geh8237yd"
+        },
+        "NW": {
+          "queue": ["yellowcar","purplecar","volcano"],
+          "interId": "28y2dh3872yh2d7h"
+        },
+        "SE": {
+          "queue": ["redfish","bluefish"],
+          "interId": "27tgh874yh489"
+        },
+        "SW": {
+          "queue": ["greenfish","cactus"],
+          "interId": "898j98j9ds78yfh7"
+        }
+      }
+    },{
+      "id": "1hge6723yhb3782h",
+      "roads": {
+        "NE": {
+          "queue": ["redcar","greencar","bluecar"],
+          "interId": "12uy12t37geh8237yd"
+        },
+        "NW": {
+          "queue": ["yellowcar","purplecar","volcano"],
+          "interId": "28y2dh3872yh2d7h"
+        },
+        "SE": {
+          "queue": ["redfish","bluefish"],
+          "interId": "27tgh874yh489"
+        },
+        "SW": {
+          "queue": ["greenfish","cactus"],
+          "interId": "898j98j9ds78yfh7"
+        }
+      }
+    }
+  ],
+  "cars": [
+    {
+      "_id": "iusdhf98u4jf89",
+      "history": ["8j89885heuhg","98ks409ir9fj"],
+      "skin": 4
+    },{
+      "_id": "iusdhf98u4jf89",
+      "history": ["8j89885heuhg","98ks409ir9fj"],
+      "skin": 2
+    }
+  ],
+  "users": [
+    {
+      "_id": "sjghsiouh5u958498",
+      "interId": "0000040343fh0fh",
+      "name": "chadrik",
+      "avatar": {
+        "href": "www.pokedicks.meteor.com"
+      }
+    },{
+      "_id": "sjghsiouh5u958498",
+      "interId": "0029309j9hhc9h",
+      "name": "case",
+      "avatar": {
+        "href": "www.plexis.meteor.com"
+      }
+    }
+  ]
+}
