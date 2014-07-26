@@ -4,14 +4,14 @@ Intersection: document             intersection in the grid
   roads: object                   object of the roads eminating from this intersection
     ne: object                    road direction
       queue: [carId]              ordered list of cars
-      interId: UUID               intersection this road connects to
+      connectionId: UUID               intersection this road connects to
       type: string                human/empty/computer
     nw...
     se...
     sw...
 
 Car: document
-  direction: string               left/straight/right
+  destination: string             ne/nw/se/sw
   history: [UUID]                 intersections car has passed
   skin: int                       look of car
 
