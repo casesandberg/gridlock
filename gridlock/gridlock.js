@@ -21,6 +21,10 @@ if (Meteor.isServer) {
     return user;
   });
 
+  Meteor.publish(null, function () {
+    return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, interId: 1, score: 1}});
+  });
+
   Meteor.startup(function () {
     // code to run on server at startup
   });
