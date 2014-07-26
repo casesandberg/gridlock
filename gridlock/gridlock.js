@@ -13,6 +13,14 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+  Accounts.onCreateUser(function(options, user) {
+    console.log("FB ACCOUNT CUSTOM");
+    user.score = 0;
+    user.interId = "_temp";
+    user.avatar = {"href":"_temp"};
+    return user;
+  });
+
   Meteor.startup(function () {
     // code to run on server at startup
   });
