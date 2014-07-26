@@ -5,19 +5,23 @@
       "roads": {
         "NE": {
           "queue": ["redcar","greencar","bluecar"],
-          "interId": "12uy12t37geh8237yd"
+          "interId": "12uy12t37geh8237yd",
+          "type": "edge"
         },
         "NW": {
           "queue": ["yellowcar","purplecar","volcano"],
-          "interId": "28y2dh3872yh2d7h"
+          "interId": "28y2dh3872yh2d7h",
+          "type": "human"
         },
         "SE": {
           "queue": ["redfish","bluefish"],
-          "interId": "27tgh874yh489"
+          "interId": "27tgh874yh489",
+          "type": "human"
         },
         "SW": {
           "queue": ["greenfish","cactus"],
-          "interId": "898j98j9ds78yfh7"
+          "interId": "898j98j9ds78yfh7",
+          "type": "edge"
         }
       }
     },{
@@ -25,19 +29,23 @@
       "roads": {
         "NE": {
           "queue": ["redcar","greencar","bluecar"],
-          "interId": "12uy12t37geh8237yd"
+          "interId": "12uy12t37geh8237yd",
+          "type": "human"
         },
         "NW": {
           "queue": ["yellowcar","purplecar","volcano"],
-          "interId": "28y2dh3872yh2d7h"
+          "interId": "28y2dh3872yh2d7h",
+          "type": "edge"
         },
         "SE": {
           "queue": ["redfish","bluefish"],
-          "interId": "27tgh874yh489"
+          "interId": "27tgh874yh489",
+          "type": "human"
         },
         "SW": {
           "queue": ["greenfish","cactus"],
-          "interId": "898j98j9ds78yfh7"
+          "interId": "898j98j9ds78yfh7",
+          "type": "human"
         }
       }
     }
