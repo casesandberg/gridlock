@@ -1,0 +1,19 @@
+{
+  "name": "gridlock",
+  "version": "0.0.0",
+  "authors": [
+    "casesandberg <case@casesandberg.com>"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "less": "~1.7.0",
+    "alertify": "~0.3.10"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

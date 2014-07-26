@@ -1,0 +1,36 @@
+@import '../baseline.less';
+
+.wrap-map{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+
+	.map{
+		-webkit-transform: rotate(45deg);
+		.clearfix();
+	}
+}
+
+.square{
+	float: left;
+
+	&[data-color="1"]{
+		background: rgba(0,0,0,.1);
+	}
+	&[data-color="2"]{
+		background: rgba(0,0,0,.15);
+	}
+	&[data-color="3"]{
+		background: rgba(0,0,0,.2);
+	}
+	&[data-color="4"]{
+		background: rgba(0,0,0,.25);
+	}
+	&[data-color="5"]{
+		background: rgba(0,0,0,.3);
+	}
+
+	&.center{
+		background: #fff;
+	}
+}

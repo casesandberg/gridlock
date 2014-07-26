@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" ng-app="intro">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Gridlock</title>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/alertify/alertify.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/alertify/themes/alertify.core.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/alertify/themes/alertify.default.css">
+
+    <script src="app/util.js"></script>
+    <script src="app/map/map.js"></script>
+
+    <link href="app/map/map.less" rel="stylesheet/less" />
+    <script src="bower_components/less/dist/less-1.7.0.min.js"></script>
+    <script> less.env = "development"; less.watch(); </script>
+</head>
+<body>
+
+	<div class="wrap-map">
+		<div class="map"></div>
+	</div>
+
+</body>
+</html>
