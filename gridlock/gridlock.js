@@ -54,8 +54,23 @@ if (Meteor.isServer) {
   Meteor.publish(null, function () {
     return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, intersectionId: 1, score: 1, name: 1}});
   });
-
-  
+  Intersections.find({}).observeChanges({
+    changed: function(id, fields) {
+      console.log("id: ", id, "fields: ", fields);
+      if (!!fields.roads) {
+        var roads  = fields.roads;
+        if (roads.nw.queue.length === 6) {
+          Meteor.call('gridlocked', id);
+        } else if (roads.ne.queue.length === 6) {
+          Meteor.call('gridlocked', id);
+        } else if (roads.sw.queue.length === 6) {
+          Meteor.call('gridlocked', id);
+        } else if (roads.se.queue.length === 6) {
+          Meteor.call('gridlocked', id);
+        }
+      };
+    }
+  });
 
   Meteor.startup(function () {
     // code to run on server at startup
