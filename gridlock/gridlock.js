@@ -2,6 +2,9 @@ if (Meteor.isClient) {
   Template.hello.greeting = function () {
     return "User:";
   };
+  Template.hello.user = function () {
+    return Meteor.user();
+  }
 
   Template.roads.intersection = function () {
     if (!!Meteor.user()) {
@@ -63,15 +66,16 @@ if (Meteor.isServer) {
   Accounts.onCreateUser(function(options, user) {
     console.log("FB ACCOUNT CUSTOM");
     user.score = 0;
-    user.intersectionId = "_temp";
+    user.intersectionId = "_temp"//Meteor.call('addIntersection');
     user.avatar = {"href":"_temp"};
+    user.name = user.services.facebook.name;
     //give them an intersectioon
     
     return user;
   });
 
   Meteor.publish(null, function () {
-    return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, intersectionId: 1, score: 1}});
+    return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, intersectionId: 1, score: 1, name: 1}});
   });
 
   
