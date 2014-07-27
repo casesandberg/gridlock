@@ -10,10 +10,59 @@ Meteor.methods({
     //look up which intersection to go to. I'm sending to a 'road' that is the 'destination', then look at the cars current intersection for the matching 'destination' road. Then that roads 'connectionId' is where we send the car to. Map 'destination' to its adjacent road dorection, and add the car to that point in the connecting intersection.
     //remove from 'moving'
     var car = Cars.findOne({_id: cardId});
-    console.log
+    //console.log;
 
 
   },
+  assignIntersection: function(user) {
+
+  },
+
+
+
+  
+  createAndInsertCar: function (intersectionId, quadrant) {
+    var styleCount = 5;
+    var directionCount = 4;
+    chooseSkin = function () { 
+      return Math.floor(Math.random()*styleCount);
+    };
+    chooseDirection = function () {
+      var dir = Math.floor(Math.random()*directionCount);
+      switch(dir) {
+        case 0:
+          return "nw";
+        case 1:
+          return "ne";
+        case 2:
+          return "se";
+        case 3:
+          return "sw";
+        default:
+          return "nw";
+      };
+    };
+    var car = {
+      history: [intersectionId],
+      direction: chooseDirection(),
+      skin: chooseSkin()
+    };
+    var carId = Cars.insert(car);
+    var doingSet = {};
+    doingSet["roads." + quadrant + ".queue"] = carId;
+    Intersections.update({_id: intersectionId}, {
+      $addToSet: doingSet
+    });
+  },
+
+  spawnCars: function (maxCars) {
+    // see how many cars are in the system
+    // add cars until the number reaces maxCars
+  },
+
+
+
+
   testAddCar: function(){
     var dest = Math.floor((Math.random() * 4) + 1);
     var destCompass = ["NW", "SW", "SE", "NE"];
@@ -25,19 +74,19 @@ Meteor.methods({
     });
   },
   testAddIntersection: function() {
-    id1 = Intersections.insert({
+    var id1 = Intersections.insert({
       roads: {},
       moving: []
     });
-    id2 = Intersections.insert({
+    var id2 = Intersections.insert({
       roads: {},
       moving: []
     });
-    id3 = Intersections.insert({
+    var id3 = Intersections.insert({
       roads: {},
       moving: []
     });
-    id4 = Intersections.insert({
+    var id4 = Intersections.insert({
       roads: {},
       moving: []
     });
