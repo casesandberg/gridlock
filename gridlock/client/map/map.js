@@ -28,8 +28,8 @@ var current;
 
 Template.map.events({
 	'dragstart .car': function(event){
-		destination = $(this).attr('data-destination');
-		current = $(this).attr('data-current');
+		destination = $(event.currentTarget).attr('data-destination');
+		current = $(event.currentTarget).attr('data-current');
 		alertify.log();
 
 		move.start($(event.currentTarget), destination);
