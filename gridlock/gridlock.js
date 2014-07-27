@@ -58,6 +58,14 @@ if (Meteor.isClient) {
     }
   };
 
+  // Template.carS.rendered = function() {
+  //   //console.log(this.data);
+  //   var car = Cars.findOne(this.data);
+  //   //console.log(car)
+  //   $('#'+this.data).html(JSON.stringify(car))
+  //   //Case: use jquery shit here to insert whatever you want for each car. 
+  // }
+
   Handlebars.registerHelper('arrayify',function(obj){
       result = [];
       for (var key in obj) result.push({name:key,value:obj[key]});
