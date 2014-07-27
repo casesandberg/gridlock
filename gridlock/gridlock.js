@@ -11,19 +11,27 @@ if (Meteor.isClient) {
       }
     }
   });
+
+  Template.car.events({
+    'click input.pull': function () {
+      
+    }
+  })
 }
 
 if (Meteor.isServer) {
   Accounts.onCreateUser(function(options, user) {
     console.log("FB ACCOUNT CUSTOM");
     user.score = 0;
-    user.interId = "_temp";
+    user.intersectionId = "_temp";
     user.avatar = {"href":"_temp"};
+    //give them an intersectioon
+    
     return user;
   });
 
   Meteor.publish(null, function () {
-    return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, interId: 1, score: 1}});
+    return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, intersectionId: 1, score: 1}});
   });
 
   

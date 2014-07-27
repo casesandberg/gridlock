@@ -51,7 +51,6 @@ Meteor.methods({
     
   },
   sendCar: function(carId) {
-
     //find car in intersection and yank it out.
     //send to a new intersection
     //
@@ -67,8 +66,10 @@ Meteor.methods({
     var id = intersection._id;
     var moving = intersection.moving;
 
+    //give user a point
+    Meteor.users.update({intersectionId: id}, {$inc: {score: 1}});
+
     //found car in intersection in moving
-    
     //remove car from 'moving'
     Intersections.update({_id: id}, {$pull: {moving: carId}});
     //note direction equivalent
@@ -85,30 +86,40 @@ Meteor.methods({
       console.log("Removing car! coming from: ", intersection._id)
       Cars.remove({_id: carId});
     } else {
-      console.log("Moving Car! coming from: ", intersection._id, "going to: ", connectionId)
+      console.log("Moving Car! in dir: ", car.direction, "coming from: ", intersection._id, "going to: ", connectionId)
       var quadrant = "";
       switch(car.direction) {
         case "nw":
           quadrant = "se";
+          break;
         case "ne":
           quadrant = "sw";
+          break;
         case "sw":
           quadrant = "ne";
+          break;
         case "se":
           quadrant = "nw";
+          break;
         default:
           quadrant = "_temp";
       };
-
+      //console.log("quadrent: ", quadrant)
       //add car to the road it is supposed to move to.
       var doingSet = {};
       doingSet["roads." + quadrant + ".queue"] = carId;
+      console.log("quadrent: ", quadrant, " doingSet: ", JSON.stringify(doingSet))
       Intersections.update({_id: connectionId}, {$addToSet: doingSet});
       var connectingInter = Intersections.findOne({_id: connectionId});
       console.log(carId, "connetionId: ", connectionId, "connectingInter: ", connectingInter);
 
       //change car direction after send
-      Cars.update({_id: carId},{$set: {direction: util.randomDirection()}});
+      var newDir = util.randomDirection();
+      while(quadrant === newDir) {
+        newDir = util.randomDirection();
+      }
+      Cars.update({_id: carId},{$set: {direction: newDir}});
+      Cars.update({_id: carId},{$push: {history: connectionId}});
     }
   },
   assignIntersection: function(user) {
@@ -118,9 +129,13 @@ Meteor.methods({
     chooseSkin = function () { 
       return Math.floor(Math.random()*util.styleCount);
     };
+    var newDir = util.randomDirection();
+    while(quadrant === newDir) {
+      newDir = util.randomDirection();
+    }
     var car = {
       history: [intersectionId],
-      direction: util.randomDirection(),
+      direction: newDir,
       skin: chooseSkin()
     };
     var carId = Cars.insert(car);
@@ -137,6 +152,7 @@ Meteor.methods({
     var tryCount = 0;
     randomRoad = function (intersection, types) {
       var direction = util.randomDirection();
+      console.log(direction);
       if(_.contains(types, intersection.roads[direction].type)) {
         return direction;
       };
@@ -150,6 +166,7 @@ Meteor.methods({
     for(var i = currentCount; i < maxCars; i++) {
       edgeIntersections = Intersections.find({$or: [{"roads.nw.type": {$in: types}}, {"roads.ne.type": {$in: types}}, {"roads.se.type": {$in: types}}, {"roads.sw.type": {$in: types}}]}).fetch()
       randomIntersection = edgeIntersections[Math.floor(Math.random()*edgeIntersections.length)]
+      
       var road = randomRoad(randomIntersection, types) 
       if(!!road) {
         Meteor.call("createAndInsertCar", randomIntersection._id, road);
@@ -246,6 +263,12 @@ Meteor.methods({
   },
   testFlushIntersections: function() {
     Intersections.remove({});
-  }
+  },
+  testFlush: function () {
+    Meteor.call('testFlushCars');
+    Meteor.call('testFlushIntersections');
+    Meteor.call('testFlushUsers');
+  },
+  
 
 });
