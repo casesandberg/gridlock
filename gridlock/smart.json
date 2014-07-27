@@ -3,5 +3,8 @@
     "bower": {}
   },
   "bower": {
+  	"less": "~1.7.0",
+  	"alertify": "~0.3.10",
+  	"jquery.event.drag-drop": "~2.2.1"
   }
 }
