@@ -1,49 +1,65 @@
 $(function(){
 
-	var rows = 35;
-	var columns = 35;
-	var grid = util.create2d(rows, columns);
-	var map = $('.map');
+	// Car
 
-	// Create li's. To be replaced with handlebar templates
-	var square;
-	for (var i = 0; i < rows; i++){
-		for (var j = 0; j < columns; j++){
+	var move = {
+		start: function(destination, event){
+			// $('.wrap-map').append($('.car').clone().addClass('ghost'));
+			if(destination == 'NE'){
+				grid[13][18].addClass('gate-square');
+				grid[13][19].addClass('gate-square');
+				grid[13][20].addClass('gate-square');
+			}
+		},
+		ghost: function(current, event){
+			var car = $('.car');
+			
+			if(current == 'SW'){
+				$('.ghost').css({
+					'left': event.clientX + 165,
+					'top': event.clientY + 290 + 30,
+					'-webkit-transform': 'rotate(' + ((car.offset().left - event.clientX) / (car.offset().top - event.clientY + 40) ) * -100 + 'deg)'
+				})
+				$('.ghost div').css({
+					'-webkit-transform': 'rotate(' + ((car.offset().left - event.clientX) / (car.offset().top - event.clientY + 40) ) * 100 + 'deg)'
+				});
+			}
+		},
+		success: function(destination){
+			alertify.success();
+			$('.gate-square').removeClass('gate-square');
+			$('.ghost').remove();
 
-			square = $(document.createElement('li')).addClass('square').attr('data-color', util.randomPickFromArray([1, 2, 3, 4, 5]));
-			map.append(square);
-			grid[i][j] = square;
-
+			if(destination == 'NE'){
+				$('.car').addClass('move-up');
+			};
+		},
+		unfinished: function(){
+			$('.gate-square').removeClass('gate-square');
+			$('.ghost').remove();
 		}
 	}
 
-	// Sizing. To be replaced with handlebar template style tags
-	var squarePercent = $(window).width() / 26;
+	var destination;
+	var current;
 
-	map.css('width', squarePercent * columns);
-
-	$('.square').css({
-		'width': squarePercent,
-		'height': squarePercent
+	$('.car').bind('dragstart', function(){
+		alertify.log();
+		destination = $(this).attr('data-destination');
+		current = $(this).attr('data-current');
+		move.start(destination);
 	});
 
-	$('.wrap-map').css({
-		'margin-left': (-squarePercent * columns) / 2,
-		'margin-top': (-squarePercent * rows) / 2
+	$('.car').bind('dragend', function(){
+		move.unfinished();
 	});
 
-	// Intersection layout. To be replaced with ASKII map
-	var intersection = {
-		wide: 7,
-		tall: 7,
-		startTop: ((rows - 1) / 2) - ((7 - 1) / 2),
-		startLeft: ((columns - 1) / 2) - ((7 - 1) / 2),
-	}
+	$('.car').bind('drag', function(event){
+		move.ghost(current, event);
+	});
 
-	for (var i = intersection.startTop; i < intersection.startTop + intersection.tall; i++){
-		for (var j = intersection.startLeft; j < intersection.startLeft + intersection.wide; j++){
-			grid[i][j].addClass('center');
-		}
-	}
+	$('.map2').delegate('.gate-square', 'mouseenter', function(){
+		move.success(destination);
+	});
 
 });
