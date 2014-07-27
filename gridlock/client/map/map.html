@@ -1,0 +1,119 @@
+<template name="map">
+
+	<div class="map">
+	    <div class="map-center"></div>
+
+	    <ul class="map-streets">
+
+	        <li class="street nw-street">
+
+	            <div class="street-bg"></div>
+	            
+	            <div class="street-queue">
+	                <ul class="queue-cars">
+	                    <li class="car" data-destination="SW" data-current="NW">
+	                        <div class="car-image">1 &gt;</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SE" data-current="NW">
+	                        <div class="car-image">2 ^</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SE" data-current="NW">
+	                        <div class="car-image">3 ^</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SW" data-current="NW">
+	                        <div class="car-image">4 &gt;</div>
+	                    </li>
+	                </ul>
+	            </div>
+
+	            <div class="street-gate"></div>
+	        </li>
+
+	        <li class="street ne-street">
+
+	            <div class="street-bg"></div>
+
+	            <div class="street-queue">
+	                <ul class="queue-cars">
+	                    <li class="car" data-destination="SW" data-current="NE">
+	                        <div class="car-image">1 ^</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SE" data-current="NE">
+	                        <div class="car-image">2 &lt;</div>
+	                    </li>
+
+	                    <li class="car" data-destination="NW" data-current="NE">
+	                        <div class="car-image">3 &gt;</div>
+	                    </li>
+
+	                    <li class="car"  data-destination="SE" data-current="NE">
+	                        <div class="car-image">4 &lt;</div>
+	                    </li>
+	                </ul>
+	            </div>
+
+	            <div class="street-gate"></div>
+	        </li>
+
+	        <li class="street se-street">
+
+	            <div class="street-bg"></div>
+
+	            <div class="street-queue">
+	                <ul class="queue-cars">
+	                    <li class="car" data-destination="SW" data-current="SE">
+	                        <div class="car-image">1 &lt;</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SW" data-current="SE">
+	                        <div class="car-image">2 &lt;</div>
+	                    </li>
+
+	                    <li class="car" data-destination="NW" data-current="SE">
+	                        <div class="car-image">3 ^</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SW" data-current="SE">
+	                        <div class="car-image">4 &lt;</div>
+	                    </li>
+	                </ul>
+	            </div>
+
+	            <div class="street-gate"></div>
+	        </li>
+
+	        <li class="street sw-street">
+
+	            <div class="street-bg"></div>
+
+	            <div class="street-queue">
+	                <ul class="queue-cars">
+	                    <li class="car" data-destination="SE" data-current="SW">
+	                        <div class="car-image">1 &gt;</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SE" data-current="SW">
+	                        <div class="car-image">2 &gt;</div>
+	                    </li>
+
+	                    <li class="car" data-destination="SE" data-current="SW">
+	                        <div class="car-image">3 &gt;</div>
+	                    </li>
+
+	                    <li class="car" data-destination="NE" data-current="SW">
+	                        <div class="car-image">4 ^</div>
+	                    </li>
+	                </ul>
+	            </div>
+
+	            <div class="street-gate"></div>
+	        </li>
+
+	    </ul>
+	</div>
+
+</template>

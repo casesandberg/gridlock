@@ -1,7 +1,5 @@
 $(function(){
 
-	// Car
-
 	var car = $('.car');
 	var gate = $('.street-gate');
 
@@ -85,4 +83,4 @@ $(function(){
 		});
 	});
 
-});
+})
