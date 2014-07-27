@@ -41,9 +41,18 @@ if (Meteor.isServer) {
     user.score = 0;
     user.avatar = {"href":"_temp"};
     user.name = user.services.facebook.name;
+    user.intersectionId = "none";//= Meteor.call('assignOrAddIntersection', user._id); //give them an intersectioon 
     return user;
+    
   });
-  
+  Accounts.onLogin(function(user) {
+    userId = user.user._id;
+    if(user.user.intersectionId === "none") {
+      Meteor.call('assignOrAddIntersection', userId);
+    }
+  });
+  /* 
+  //not working for demo
   Accounts.onLogin(function(user){
     Meteor.call('findOrAddIntersection', function(err, id){ //give them an intersectioon 
       console.log("giving user " + id);
@@ -51,8 +60,10 @@ if (Meteor.isServer) {
       userId = user.user._id
       Meteor.users.update({_id: userId}, {$set: {intersectionId: id}});
       Intersections.update({_id: id}, {$set: {userId: userId}});
+      Meteor.setTimeout(function(){Meteor.call('spawnCars', util.carsPerUser*Meteor.users.find({intersectionId:{$ne: "none"}}).count(), ["edge"])}, 200);
     });
   });
+  */
 
   Meteor.publish(null, function () {
     return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, intersectionId: 1, score: 1, name: 1}});
