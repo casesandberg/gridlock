@@ -4,16 +4,20 @@ Template.hud.user = function () {
 
 Deps.autorun(function(){
 	if (!!Meteor.user()) {
-		$('.foo')
+		// $('.foo')
 		if(Meteor.user().score === -1) {
 			$('.hud-gridlock').show();
 		} else {
 			$('.hud-gridlock').hide();
 		}	
 	} else {
-		$('.foo')
+		// $('.foo')
 	}
 });
+
+Meteor.setInterval(function(){
+	Meteor.call('spawnCars',5, ["edge"]);
+},2000);
 
 Template.hud.events({
 	'click .gridlock-cta': function() {
