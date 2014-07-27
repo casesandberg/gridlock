@@ -24,8 +24,6 @@ Template.car.helpers({
             }
         };
     });
-    console.log(car.current);
-    console.log(car.direction);
     if(car.current == 'nw' && car.direction == 'ne' || car.current == 'ne' && car.direction == 'se' || car.current == 'se' && car.direction == 'sw' || car.current == 'sw' && car.direction == 'nw'){
       car.arrow = '<';
     }

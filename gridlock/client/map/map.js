@@ -30,7 +30,6 @@ Template.map.events({
 	'dragstart .car': function(event){
 		destination = $(event.currentTarget).attr('data-destination');
 		current = $(event.currentTarget).attr('data-current');
-		alertify.log();
 
 		move.start($(event.currentTarget), destination);
 	},
@@ -46,12 +45,11 @@ Template.map.events({
 });
 
 var car = $('.car');
-var gate = $('.street-gate');
 
 var move = {
 	start: function(_this, destination){
 		_this.closest('.street-queue').append(_this.clone().addClass('ghost'));
-		$('.' + destination.toLowerCase() + '-street').find(gate).addClass('active');
+		$('.' + destination + '-street').find('.street-gate').addClass('active');
 	},
 	ghost: function(_this, current, event){
 		Math.radians = function(degrees) {
@@ -102,7 +100,7 @@ var move = {
 	},
 	done: function(){
 		$('.ghost').remove();
-		gate.removeClass('active');
+		$('.street-gate').removeClass('active');
 
 		car.unbind('dragend drag');
 		gate.unbind('mouseenter');
