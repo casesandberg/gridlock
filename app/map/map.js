@@ -15,9 +15,8 @@ $(function(){
 				return degrees * Math.PI / 180;
 			};
 
-			console.log(event);
 			var top = _this.offset().top - event.clientY ;
-			var left = -(_this.offset().left - event.clientX) - 40;
+			var left = -((_this.offset().left - event.clientX) + 20);
 
 			if(current == 'SW'){
 				$('.ghost').css({
@@ -49,6 +48,7 @@ $(function(){
 			}
 		},
 		success: function(destination){
+			$('.ghost').remove();
 			alertify.success();
 
 			if(destination == 'NE'){
@@ -80,7 +80,7 @@ $(function(){
 			move.done();
 		});
 
-		gate.on('mouseenter', function(){
+		$('.active').on('mouseenter', function(){
 			move.success(destination);
 		});
 	});
