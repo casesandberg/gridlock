@@ -2,10 +2,24 @@ Template.hud.user = function () {
 	return Meteor.user();
 }
 
-Template.hud.gridlock = function() {
-	
-}
+Deps.autorun(function(){
+	if (!!Meteor.user()) {
+		if(Meteor.user().score === -1) {
+			$('.hud-gridlock').show();
+		} else {
+			$('.hud-gridlock').hide();
+		}	
+	}
+});
 
+Template.hud.events({
+	'click .gridlock-cta': function() {
+		if (!!Meteor.user()) {
+			Meteor.call('postGridlock', Meteor.user()._id);	
+		};
+		
+	}
+})
 Template.hud.nw = function () {
   if (!!Meteor.user()) {
     var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
