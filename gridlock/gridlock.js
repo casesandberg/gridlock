@@ -77,10 +77,13 @@ if (Meteor.isServer) {
     user.score = 0;
     user.avatar = {"href":"_temp"};
     user.name = user.services.facebook.name;
+    return user;
   });
   
   Accounts.onLogin(function(user){
+    console.log("jshdf");
     Meteor.call('findOrAddIntersection', function(err, id){ //give them an intersectioon 
+      console.log("inside");
       user.intersectionId = id;
       Intersections.update({_id: id}, {$set: {userId: user._id}});
       return user;
