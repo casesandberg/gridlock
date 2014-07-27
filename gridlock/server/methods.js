@@ -1,4 +1,4 @@
-var util = {};
+util = {};
 util.styleCount = 5;
 util.directionCount = 4;
 util.randomDirection = function () {
@@ -16,6 +16,7 @@ util.randomDirection = function () {
       return "nw";
   };
 };
+util.masterMatrix = [];
 
 
 Meteor.methods({
