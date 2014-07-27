@@ -42,7 +42,7 @@ Template.map.events({
 	'mouseover .active': function(){
 		move.success(destination);
 	},
-	'click .active': function(){
+	'touchstart .active': function(){
 		move.success(destination);
 	}
 });
