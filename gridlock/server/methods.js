@@ -244,7 +244,7 @@ Meteor.methods({
     var currentCount = Cars.find().count();
     var tryCount = 0;
     randomRoad = function (intersection, types) {
-      var direction = util.action();
+      var direction = util.randomDirection();
       console.log(direction);
       if(_.contains(types, intersection.roads[direction].type)) {
         return direction;
@@ -267,10 +267,6 @@ Meteor.methods({
       else {maxCars++;};
     };
   },
-
-
-
-
   testAddCar: function(){
     var dest = Math.floor((Math.random() * 4) + 1);
     var destCompass = ["NW", "SW", "SE", "NE"];
