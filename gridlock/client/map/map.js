@@ -27,15 +27,15 @@ var destination;
 var current;
 
 Template.map.events({
-	'dragstart .car': function(){
+	'dragstart .car': function(event){
 		destination = $(this).attr('data-destination');
 		current = $(this).attr('data-current');
 		alertify.log();
 
-		// move.start($(this), destination);
+		move.start($(event.currentTarget), destination);
 	},
 	'drag .car': function(event){
-		move.ghost($(this), current, event);
+		move.ghost($(event.currentTarget), current, event);
 	},
 	'dragend .car': function(){
 		move.done();
