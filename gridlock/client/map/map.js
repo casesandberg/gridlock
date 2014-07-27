@@ -41,6 +41,9 @@ Template.map.events({
 	},
 	'mouseover .active': function(){
 		move.success(destination);
+	},
+	'click .active': function(){
+		move.success(destination);
 	}
 });
 
