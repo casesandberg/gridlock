@@ -20,6 +20,11 @@ if (Meteor.isClient) {
       return Intersections.findOne({_id: Meteor.user().intersectionId})
     }
   };
+  Template.map.intersection = function () {
+    if (!!Meteor.user()) {
+      return Intersections.findOne({_id: Meteor.user().intersectionId})
+    }
+  };
   Template.intersection.moving = function () {
     if (!!Meteor.user()) {
       var moving = Intersections.findOne({_id: Meteor.user().intersectionId}).moving;
