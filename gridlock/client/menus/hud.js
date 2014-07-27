@@ -2,6 +2,10 @@ Template.hud.user = function () {
 	return Meteor.user();
 }
 
+Template.hud.gridlock = function() {
+	
+}
+
 Template.hud.nw = function () {
   if (!!Meteor.user()) {
     var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;

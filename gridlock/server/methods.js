@@ -34,6 +34,9 @@ util.newIntersection = function () {
 
 
 Meteor.methods({
+  postGridlock: function(userId) {
+    Meteor.users.update({_id: userId}, {$set: {score: 0}});
+  },
   gridlocked: function(intersectionId) {
     //move user to new intersection
     //take user off intersection
@@ -50,7 +53,7 @@ Meteor.methods({
     Intersections.update({_id: intersectionId},{$set: {"roads.se.queue": []}});
     Intersections.update({_id: intersectionId},{$set: {"roads.sw.queue": []}});
     Intersections.update({_id: intersectionId},{$set: {moving: []}});
-    Meteor.users.update({_id: intersection.userId}, {$set: {score: 0}});
+    Meteor.users.update({_id: intersection.userId}, {$set: {score: -1}});
   },
   pullCar: function(carId) {
     //put in moving array from inside road
