@@ -5,11 +5,7 @@
 
 	width: 40px;
 	height: 40px;
-	background: #333;
-	color: #fff;
 	text-align: center;
-	line-height: 40px;
-	.font(18, 400);
 	z-index: 10;
 	position: relative;
 
@@ -46,5 +42,18 @@
 	&[data-skin="4"]{
 		background: url('car-8.png') center center no-repeat;
 		background-size: contain;
+	}
+
+	.car-label{
+		background: #8d20f2;
+		width: 18px;
+		height: 18px;
+		text-align: center;
+		line-height: 18px;
+		.font(16, 400);
+		.border-radius(9px);
+		box-shadow: 0 0 0 2px rgba(24, 24, 24, .8);
+
+		color: #fff;
 	}
 }

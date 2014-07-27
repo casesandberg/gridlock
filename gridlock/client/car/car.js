@@ -25,15 +25,15 @@ Template.car.helpers({
         };
     });
     if(car.current == 'nw' && car.direction == 'ne' || car.current == 'ne' && car.direction == 'se' || car.current == 'se' && car.direction == 'sw' || car.current == 'sw' && car.direction == 'nw'){
-      car.arrow = '<';
+      car.arrow = '←';
     }
 
     if(car.current == 'nw' && car.direction == 'sw' || car.current == 'sw' && car.direction == 'se' || car.current == 'se' && car.direction == 'ne' || car.current == 'ne' && car.direction == 'nw'){
-      car.arrow = '>';
+      car.arrow = '→';
     }
 
     if(car.current == 'nw' && car.direction == 'se' || car.current == 'ne' && car.direction == 'sw' || car.current == 'se' && car.direction == 'nw' || car.current == 'sw' && car.direction == 'ne'){
-      car.arrow = '^';
+      car.arrow = '↑';
     }
 
     return car;
