@@ -6,13 +6,16 @@
 	top: 50%;
 
 	.map{
-		-webkit-transform: rotate(45deg);
+		// -webkit-transform: rotate(45deg);
 		.clearfix();
 	}
 }
 
 .square{
 	float: left;
+	color: rgba(0,0,0,.2);
+
+	.transition();
 
 	&[data-color="1"]{
 		background: rgba(0,0,0,.1);
@@ -32,5 +35,34 @@
 
 	&.center{
 		background: #fff;
+	}
+
+	&.gate-square{
+		background: #aeee00;
+	}
+}
+
+.car{
+	width: 20px;
+	height: 40px;
+	line-height: 40px;
+	position: absolute;
+	background: #333;
+	margin: 0 0 0 10px;
+
+	&.move-up{
+		.transition(all 600ms linear);
+		-webkit-transform: translateY(-300px);
+	}
+
+	&.ghost{
+		opacity: .4;
+	}
+
+	div{
+		color: #fff;
+		.font(24, 400);
+		text-align: center;
+		display: block;
 	}
 }
