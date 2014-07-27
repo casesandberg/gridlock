@@ -1,12 +1,5 @@
 if (Meteor.isClient) {
   
-  // Template.carP.rendered = function() {
-  //   //console.log(this.data);
-  //   var car = Cars.findOne(this.data);
-  //   //console.log(car)
-  //   $('#'+this.data).html(JSON.stringify(car))
-  //   //Case: use jquery shit here to insert whatever you want for each car. 
-  // }
   // Template.carS.rendered = function() {
   //   //console.log(this.data);
   //   var car = Cars.findOne(this.data);
