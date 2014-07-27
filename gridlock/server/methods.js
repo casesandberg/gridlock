@@ -1,8 +1,8 @@
 util = {};
 util.styleCount = 5;
 util.directionCount = 4;
-util.carsPerUser = 12;
-util.carsPerIntersection = 12;
+util.carsPerUser = 3;
+util.carsPerIntersection = 3;
 util.randomDirection = function () {
   var dir = Math.floor(Math.random()*util.directionCount);
   switch(dir) {
