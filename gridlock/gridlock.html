@@ -3,62 +3,42 @@
 </head>
 
 <body>
-  {{> loginButtons}}
-  <div style="float: right;">{{> intersection}}{{> neighbors}}</div>
-  {{> hello}}
-  {{> mapdebug}}
 
+  {{> hud}}
   {{> map}}
- 
+  {{> neighbors}}
 </body>
 
+<template name="neighbors">  
+  {{#if nw}}
+    NW<div>
+      {{#each arrayify nw.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
 
-
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  {{user.name}}
-  Score: {{user.score}}
-  <input type="button" value="Click" />
-</template>
-
-<template name="carP">
-  CarP
-  <div id="{{this}}"></div>
-  <input class="pull" type="button" value="Pull">
-</template>
-
-<template name="carS">
-  CarS
-  <div id="{{this}}"></div>
-  <input class="send" type="button" value="Send">
-</template>
-
-<template name="mapdebug">
-  {{#each arrayify intersection.roads}}
-    <p>{{name}}</p>
-    {{#each value.queue}}
-      
-      {{> carP}}
-      <!-- _id: {{this}} -->
-
-    {{/each}}
-  {{/each}}
-</template>
-
-<template name="intersection">
-  {{#each moving}}
-    {{> carS}}
-  {{/each}}
-</template>
-
-<template name="neighbors">
-  NW
-  <p>{{nw.roads}}</p>
-  NE
-  <p>{{ne.roads}}</p>
-  SW
-  <p>{{sw.roads}}</p>
-  SE
-  <p>{{se.roads}}</p>
+  {{#if ne}}
+    NE<div>
+      {{#each arrayify ne.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}   
+  
+  {{#if sw}}
+    SW<div>
+      {{#each arrayify sw.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  
+  {{#if se}}
+    SE<div>
+      {{#each arrayify se.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
 </template>

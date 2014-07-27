@@ -1,0 +1,105 @@
+@import '../baseline.less';
+
+.hud-head{
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 50%;
+	width: 350px - 20;
+	margin-left: -175px;
+	background: #fff;
+	.border-radius(0 0 6px 6px);
+	padding: 10px;
+}
+
+.hud-mini-maps{
+
+	.nw-mini-map{
+		left: 0;
+		top: 0;
+		.border-radius(0 0 6px 0);
+	}
+	.ne-mini-map{
+		right: 0;
+		top: 0;
+		.border-radius(0 0 0 6px);
+	}
+	.se-mini-map{
+		right: 0;
+		bottom: 0;
+		.border-radius(6px 0 0 0);
+	}
+	.sw-mini-map{
+		left: 0;
+		bottom: 0;
+		.border-radius(0 6px 0 0);
+	}
+
+	.mini-map{
+		position: absolute;
+		z-index: 10;
+
+		width: 150px;
+		height: 150px;
+		background: #fff;
+
+		.mini-map-intersection{
+			position: relative;
+
+			.intersection-user{
+				padding: 45px;
+
+				.user-image{
+					width: 60px;
+					height: 60px;
+					.border-radius(50%);
+					background: #ccc;
+				}
+			}
+
+			.intersection-congestion{
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				.nw-congestion{
+					-webkit-transform: rotate(-45deg);
+					margin: 10px 0 0 30px;
+				}
+				.ne-congestion{
+					-webkit-transform: rotate(45deg);
+					margin: 10px 0 0 116px;
+				}
+				.se-congestion{
+					-webkit-transform: rotate(-45deg);
+					margin: 94px 0 0 116px;
+				}
+				.sw-congestion{
+					-webkit-transform: rotate(45deg);
+					margin: 94px 0 0 30px;
+				}
+
+				.congestion{
+					position: absolute;
+
+					.congestion-metor{
+						height: 46px;
+						width: 4px;
+						.border-radius(4px);
+
+						&.good{
+							background: #16b14e;
+						}
+						&.light{
+							background: #ffcf39;
+						}
+						&.bad{
+							background: #ff0000;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}

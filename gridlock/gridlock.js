@@ -1,118 +1,68 @@
 if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "User:";
-  };
-  Template.hello.user = function () {
-    return Meteor.user();
-  }
   Template.neighbors.nw = function () {
     if (!!Meteor.user()) {
       var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
-      //console.log(roads);
-      var seMerger = {};
+      console.log("roads: ", roads);
+      var seMerger = null;
       if (!!roads.nw.connectionId) {
         seMerger = Intersections.findOne({_id: roads.nw.connectionId})
         console.log("nw connection found");
       }
-      return JSON.stringify(seMerger);
+      console.log("merger: ", seMerger);
+      return seMerger;
     }  
   };
   Template.neighbors.ne = function () {
     if (!!Meteor.user()) {
       var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
-      //console.log(roads);
-      var swMerger = {};
+      console.log("roads: ", roads);
+      var swMerger = null;
       if (!!roads.ne.connectionId) {
         swMerger = Intersections.findOne({_id: roads.ne.connectionId})
         console.log("ne connection found")
         neighbors.push(swMerger);
       }
+      console.log("merger: ", swMerger);
       return swMerger;
     }  
   };
   Template.neighbors.sw = function () {
     if (!!Meteor.user()) {
       var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
-      //console.log(roads);
-      var neMerger = {};
+      console.log("roads: ", roads);
+      var neMerger = null;
       if (!!roads.sw.connectionId) {
         neMerger = Intersections.findOne({_id: roads.sw.connectionId})
         console.log("sw connection found")
       }
+      console.log("merger: ", neMerger);
       return neMerger;
     }  
   };
   Template.neighbors.se = function () {
     if (!!Meteor.user()) {
       var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
-      console.log(roads);
-      var nwMerger = {};
+      console.log("roads: ", roads);
+      var nwMerger = null;
       if (!!roads.se.connectionId) {
         nwMerger = Intersections.findOne({_id: roads.se.connectionId})
         console.log("se connection found")
       }
-      return nwMerger
+      console.log("merger: ", nwMerger);
+      return nwMerger;
     }  
-  };
-  Template.mapdebug.intersection = function () {
-    if (!!Meteor.user()) {
-      return Intersections.findOne({_id: Meteor.user().intersectionId})
-    }
   };
   Template.map.intersection = function () {
     if (!!Meteor.user()) {
       return Intersections.findOne({_id: Meteor.user().intersectionId})
     }
   };
-  Template.intersection.moving = function () {
-    if (!!Meteor.user()) {
-      var moving = Intersections.findOne({_id: Meteor.user().intersectionId}).moving;
-      //console.log(moving)
-      return moving
-    }
-  };
-  Template.carP.rendered = function() {
-    //console.log(this.data);
-    var car = Cars.findOne(this.data);
-    //console.log(car)
-    $('#'+this.data).html(JSON.stringify(car))
-    //Case: use jquery shit here to insert whatever you want for each car. 
-  }
-  Template.carS.rendered = function() {
-    //console.log(this.data);
-    var car = Cars.findOne(this.data);
-    //console.log(car)
-    $('#'+this.data).html(JSON.stringify(car))
-    //Case: use jquery shit here to insert whatever you want for each car. 
-  }
 
   Handlebars.registerHelper('arrayify',function(obj){
       result = [];
       for (var key in obj) result.push({name:key,value:obj[key]});
       return result;
   });
-
-  Template.hello.events({
-    'click input': function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined') {
-        
-      }
-    }
-  });
-
-  Template.carP.events({
-    'click input.pull': function (e, t) {
-      console.log(t.data);
-      Meteor.call('pullCar', t.data)
-    }
-  });
-  Template.carS.events({
-    'click input.send': function (e, t) {
-      console.log(t);
-      Meteor.call('sendCar', t.data);
-    }
-  })
 }
 
 if (Meteor.isServer) {
@@ -121,9 +71,19 @@ if (Meteor.isServer) {
     user.score = 0;
     user.avatar = {"href":"_temp"};
     user.name = user.services.facebook.name;
+    user.intersectionId = "none";//= Meteor.call('assignOrAddIntersection', user._id); //give them an intersectioon 
     return user;
+    
   });
   
+  Accounts.onLogin(function(user) {
+    userId = user.user._id;
+    if(user.user.intersectionId === "none") {
+      Meteor.call('assignOrAddIntersection', userId);
+    }
+  });
+  /* 
+  //not working for demo
   Accounts.onLogin(function(user){
     Meteor.call('findOrAddIntersection', function(err, id){ //give them an intersectioon 
       console.log("giving user " + id);
@@ -131,8 +91,10 @@ if (Meteor.isServer) {
       userId = user.user._id
       Meteor.users.update({_id: userId}, {$set: {intersectionId: id}});
       Intersections.update({_id: id}, {$set: {userId: userId}});
+      Meteor.setTimeout(function(){Meteor.call('spawnCars', util.carsPerUser*Meteor.users.find({intersectionId:{$ne: "none"}}).count(), ["edge"])}, 200);
     });
   });
+  */
 
   Meteor.publish(null, function () {
     return Meteor.users.find({_id: this.userId}, {fields: {avatar: 1, intersectionId: 1, score: 1, name: 1}});

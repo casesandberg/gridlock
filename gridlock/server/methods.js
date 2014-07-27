@@ -180,13 +180,23 @@ Meteor.methods({
       };
     });
   },
-  findOrAddIntersection: function () {
+  assignOrAddIntersection: function (userId) {
+    attachUser = function(intersectionId, userId) {
+      console.log("giving user " + intersectionId);
+      console.log("user " + userId);
+      Meteor.users.update({_id: userId}, {$set: {intersectionId: intersectionId}});
+      Intersections.update({_id: intersectionId}, {$set: {userId: userId}});
+      Meteor.setTimeout(function(){Meteor.call('spawnCars', util.carsPerUser*Meteor.users.find({intersectionId:{$ne: "none"}}).count(), ["edge"])}, 200);
+      return intersectionId;
+    };
     openIntersection = Intersections.findOne({userId: "none"});
     if(!!openIntersection) {
-      return openIntersection._id
+      return attachUser(openIntersection._id, userId);
     }
     else {
-      return Meteor.call("addIntersection");
+      Meteor.call("addIntersection", function(err, id){
+        return attachUser(id, userId);
+      });
     };
   },
   createAndInsertCar: function (intersectionId, quadrant) {
@@ -210,12 +220,12 @@ Meteor.methods({
     });
   },
 
-  spawnCars: function (maxCars, types) {
+  spawnCars: function (maxCars, types) { //number of cars for system, types of edge to populate
     // see how many cars are in the system
     var currentCount = Cars.find().count();
     var tryCount = 0;
     randomRoad = function (intersection, types) {
-      var direction = util.randomDirection();
+      var direction = util.action();
       console.log(direction);
       if(_.contains(types, intersection.roads[direction].type)) {
         return direction;

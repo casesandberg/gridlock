@@ -1,0 +1,121 @@
+<template name="hud">
+
+	<div class="hud-head">
+		{{> loginButtons}}
+		{{user.name}}
+		Score: {{user.score}}
+	</div>
+
+	<ul class="hud-mini-maps">
+
+		<li class="mini-map nw-mini-map">
+
+			<div class="mini-map-intersection">
+
+				<div class="intersection-user">
+					<div class="user-image"></div>
+				</div>
+
+				<ul class="intersection-congestion">
+					<li class="congestion nw-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion ne-congestion">
+						<div class="congestion-metor light"></div>
+					</li>
+					<li class="congestion se-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion sw-congestion">
+						<div class="congestion-metor bad"></div>
+					</li>
+				</ul>
+
+			</div>
+
+		</li>
+
+		<li class="mini-map ne-mini-map">
+
+			<div class="mini-map-intersection">
+
+				<div class="intersection-user">
+					<div class="user-image"></div>
+				</div>
+
+				<ul class="intersection-congestion">
+					<li class="congestion nw-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion ne-congestion">
+						<div class="congestion-metor light"></div>
+					</li>
+					<li class="congestion se-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion sw-congestion">
+						<div class="congestion-metor bad"></div>
+					</li>
+				</ul>
+
+			</div>
+
+		</li>
+
+		<li class="mini-map se-mini-map">
+
+			<div class="mini-map-intersection">
+
+				<div class="intersection-user">
+					<div class="user-image"></div>
+				</div>
+
+				<ul class="intersection-congestion">
+					<li class="congestion nw-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion ne-congestion">
+						<div class="congestion-metor light"></div>
+					</li>
+					<li class="congestion se-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion sw-congestion">
+						<div class="congestion-metor bad"></div>
+					</li>
+				</ul>
+
+			</div>
+
+		</li>
+
+		<li class="mini-map sw-mini-map">
+
+			<div class="mini-map-intersection">
+
+				<div class="intersection-user">
+					<div class="user-image"></div>
+				</div>
+
+				<ul class="intersection-congestion">
+					<li class="congestion nw-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion ne-congestion">
+						<div class="congestion-metor light"></div>
+					</li>
+					<li class="congestion se-congestion">
+						<div class="congestion-metor good"></div>
+					</li>
+					<li class="congestion sw-congestion">
+						<div class="congestion-metor bad"></div>
+					</li>
+				</ul>
+
+			</div>
+
+		</li>
+
+	</ul>
+
+</template>

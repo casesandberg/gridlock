@@ -1,3 +1,27 @@
+Template.map.roads = function () {
+	if (!!Meteor.user()) {
+		var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads
+		console.log(roads);
+
+		if (!!roads.nw.connectionId) {
+			var nw = Intersections.findOne({_id: roads.nw.connectionId})
+		};
+
+	}  
+}
+Template.map.intersection = function () {
+	if (!!Meteor.user()) {
+		return Intersections.findOne({_id: Meteor.user().intersectionId})
+	}
+};
+Template.map.moving = function () {
+	if (!!Meteor.user()) {
+		var moving = Intersections.findOne({_id: Meteor.user().intersectionId}).moving;
+		console.log(moving);
+
+		return moving
+	}
+};
 
 $(function(){
 
