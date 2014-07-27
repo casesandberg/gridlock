@@ -39,7 +39,7 @@ Template.map.events({
 	'dragend .car': function(){
 		move.done();
 	},
-	'mouseenter .active': function(){
+	'mouseover .active': function(){
 		move.success(destination);
 	}
 });
@@ -90,6 +90,7 @@ var move = {
 		}
 	},
 	success: function(destination){
+		$('.street-gate').removeClass('active');
 		var carId = $('.ghost').attr("data-id");
 		Meteor.call('pullCar', carId)
 		$('.ghost').remove();
@@ -101,14 +102,11 @@ var move = {
 		if(destination == 'NE'){
 			$('.car').addClass('move-up');
 		};
-		gate.unbind('mouseenter');
-		$('.street-gate').unbind('mouseenter');
 	},
 	done: function(){
 		$('.ghost').remove();
-		$('.street-gate').removeClass('active');
+		// $('.street-gate').removeClass('active');
 
 		car.unbind('dragend drag');
-		$('.street-gate').unbind('mouseenter');
 	}
 }
