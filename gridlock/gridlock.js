@@ -95,10 +95,8 @@ if (Meteor.isServer) {
     
 
     //instantiate intersection matrix and load database into matrix
-    util.masterMatrix = [];
+    util.masterMatrix = [[]];
     var topLeftSection = Intersections.findOne({$and: [{"roads.nw.type": "edge"}, {"roads.ne.type": "edge"}]});
-    util.masterMatrix.push([topLeftSection]);
-    console.log(util.masterMatrix);
     //fill out row
     //create next row
     //repeat
@@ -121,7 +119,10 @@ if (Meteor.isServer) {
         };
       };
     };
-    //populateMatrix(util.masterMatrix, 0);
-    console.log(util.masterMatrix);
+    if(!!topLeftSection) {
+      util.masterMatrix[0].push([topLeftSection]);
+      populateMatrix(util.masterMatrix, 0);
+      console.log(util.masterMatrix);
+    }    
   });
 }
