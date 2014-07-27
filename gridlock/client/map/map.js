@@ -94,7 +94,12 @@ var move = {
 		var carId = $('.ghost').attr("data-id");
 		Meteor.call('pullCar', carId)
 		$('.ghost').remove();
-		alertify.success();
+		
+		$('.head-points').addClass('add-points');
+		Meteor.setTimeout(function(){
+			$('.head-points').removeClass('add-points');
+		}, 200);
+
 		Meteor.setTimeout(function(){
 			Meteor.call('sendCar', carId)
 		}, 800);
