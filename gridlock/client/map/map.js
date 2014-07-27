@@ -105,7 +105,10 @@ var move = {
 	},
 	done: function(){
 		$('.ghost').remove();
-		// $('.street-gate').removeClass('active');
+		
+		Meteor.setTimeout(function(){
+			$('.street-gate').removeClass('active');
+		}, 600)
 
 		car.unbind('dragend drag');
 	}
