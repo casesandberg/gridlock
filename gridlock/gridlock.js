@@ -5,17 +5,56 @@ if (Meteor.isClient) {
   Template.hello.user = function () {
     return Meteor.user();
   }
-  Template.neighbors.roads = function () {
+  Template.neighbors.nw = function () {
     if (!!Meteor.user()) {
-      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads
-      console.log(roads);
+      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
+      //console.log(roads);
+      var seMerger = {};
       if (!!roads.nw.connectionId) {
-        var nw = Intersections.findOne({_id: roads.nw.connectionId})
-      };
-       
+        seMerger = Intersections.findOne({_id: roads.nw.connectionId})
+        console.log("nw connection found");
+      }
+      return JSON.stringify(seMerger);
     }  
-  }
-  Template.roads.intersection = function () {
+  };
+  Template.neighbors.ne = function () {
+    if (!!Meteor.user()) {
+      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
+      //console.log(roads);
+      var swMerger = {};
+      if (!!roads.ne.connectionId) {
+        swMerger = Intersections.findOne({_id: roads.ne.connectionId})
+        console.log("ne connection found")
+        neighbors.push(swMerger);
+      }
+      return swMerger;
+    }  
+  };
+  Template.neighbors.sw = function () {
+    if (!!Meteor.user()) {
+      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
+      //console.log(roads);
+      var neMerger = {};
+      if (!!roads.sw.connectionId) {
+        neMerger = Intersections.findOne({_id: roads.sw.connectionId})
+        console.log("sw connection found")
+      }
+      return neMerger;
+    }  
+  };
+  Template.neighbors.se = function () {
+    if (!!Meteor.user()) {
+      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads;
+      console.log(roads);
+      var nwMerger = {};
+      if (!!roads.se.connectionId) {
+        nwMerger = Intersections.findOne({_id: roads.se.connectionId})
+        console.log("se connection found")
+      }
+      return nwMerger
+    }  
+  };
+  Template.mapdebug.intersection = function () {
     if (!!Meteor.user()) {
       return Intersections.findOne({_id: Meteor.user().intersectionId})
     }
@@ -28,7 +67,7 @@ if (Meteor.isClient) {
   Template.intersection.moving = function () {
     if (!!Meteor.user()) {
       var moving = Intersections.findOne({_id: Meteor.user().intersectionId}).moving;
-      console.log(moving)
+      //console.log(moving)
       return moving
     }
   };

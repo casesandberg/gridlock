@@ -6,15 +6,13 @@
   {{> loginButtons}}
   <div style="float: right;">{{> intersection}}{{> neighbors}}</div>
   {{> hello}}
-  {{> roads}}
+  {{> mapdebug}}
 
   {{> map}}
  
 </body>
 
-<template name="neighbors">
-  {{roads}}
-</template>
+
 
 <template name="hello">
   <h1>Hello World!</h1>
@@ -36,7 +34,7 @@
   <input class="send" type="button" value="Send">
 </template>
 
-<template name="roads">
+<template name="mapdebug">
   {{#each arrayify intersection.roads}}
     <p>{{name}}</p>
     {{#each value.queue}}
@@ -49,8 +47,18 @@
 </template>
 
 <template name="intersection">
-  
   {{#each moving}}
     {{> carS}}
   {{/each}}
+</template>
+
+<template name="neighbors">
+  NW
+  <p>{{nw.roads}}</p>
+  NE
+  <p>{{ne.roads}}</p>
+  SW
+  <p>{{sw.roads}}</p>
+  SE
+  <p>{{se.roads}}</p>
 </template>
