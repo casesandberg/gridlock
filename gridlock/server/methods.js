@@ -225,7 +225,7 @@ Meteor.methods({
     var currentCount = Cars.find().count();
     var tryCount = 0;
     randomRoad = function (intersection, types) {
-      var direction = util.randomDirection();
+      var direction = util.action();
       console.log(direction);
       if(_.contains(types, intersection.roads[direction].type)) {
         return direction;

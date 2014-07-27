@@ -3,6 +3,42 @@
 </head>
 
 <body>
+
   {{> hud}}
   {{> map}}
+  {{> neighbors}}
 </body>
+
+<template name="neighbors">  
+  {{#if nw}}
+    NW<div>
+      {{#each arrayify nw.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  {{#if ne}}
+    NE<div>
+      {{#each arrayify ne.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}   
+  
+  {{#if sw}}
+    SW<div>
+      {{#each arrayify sw.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  
+  {{#if se}}
+    SE<div>
+      {{#each arrayify se.roads}}
+        <div><span>{{name}}</span>{{value.queue}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+</template>
