@@ -1,9 +1,7 @@
 {
-  "packages": {
-    "bower": {}
-  },
+  "packages": {},
   "bower": {
-  	"alertify": "~0.3.10",
-  	"jquery.event.drag-drop": "~2.2.1"
+    "alertify": "~0.3.10",
+    "jquery.event.drag-drop": "~2.2.1"
   }
 }

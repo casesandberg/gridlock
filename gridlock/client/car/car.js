@@ -1,10 +1,8 @@
-Template.car.rendered = function() {
-    //console.log(this.data);
-    var carId = this.data;
+Template.car.helpers({
+    carName: function() {
+    var carId = this.toString();
     var quadrant;
-    var car = Cars.findOne(this.data);
-    console.log(car)
-    // $('#'+this.data).html(JSON.stringify(car));
+    var car = Cars.findOne({_id: carId});
 
     var intersection = Intersections.findOne({
         $or: [
@@ -20,14 +18,23 @@ Template.car.rendered = function() {
         for (var i = 0; i < val.queue.length; i++) {
             if(val.queue[i] === carId) {
                 //found the car in road!!!
-                console.log("Found: ", val.queue[i], "in road: ", key);
+                // console.log("Found: ", val.queue[i], "in road: ", key);
                 quadrant = key;
-                console.log(quadrant);
+                car.current = quadrant;
             }
         };
     });
-    if(car.current == 'NW' && car.direction == 'NE' || car.current == 'NE' && car.direction == 'SE' || car.current == 'SE' && car.direction == 'SW' || car.current == 'SW' && car.direction == 'NW'){
-      car.direction = '&lt;';
+    console.log(car.current);
+    console.log(car.direction);
+    if(car.current == 'nw' && car.direction == 'ne' || car.current == 'ne' && car.direction == 'se' || car.current == 'se' && car.direction == 'sw' || car.current == 'sw' && car.direction == 'nw'){
+      car.arrow = '<';
     }
 
-}
+    if(car.current == 'nw' && car.direction == 'sw' || car.current == 'sw' && car.direction == 'se' || car.current == 'se' && car.direction == 'ne' || car.current == 'ne' && car.direction == 'nw'){
+      car.arrow = '>';
+    }
+
+    return car;
+
+    }
+});
