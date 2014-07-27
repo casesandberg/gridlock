@@ -10,6 +10,21 @@
 	background: rgba(24, 24, 24, .85);
 	.border-radius(0 0 6px 6px);
 	padding: 10px;
+
+	.head-points{
+		float: right;
+
+		span{
+			color: #fff;
+			display: block;
+			height: 34px;
+			line-height: 34px;
+			padding: 0 8px;
+			.font(17, 400);
+			.border-radius(2px);
+			background: #8d20f2;
+		}
+	}
 }
 
 .hud-mini-maps{
@@ -82,7 +97,7 @@
 				.congestion{
 					position: absolute;
 
-					.congestion-metor{
+					.congestion-meter{
 						height: 46px;
 						width: 4px;
 						.border-radius(4px);
@@ -93,7 +108,7 @@
 						&.congestion-3, &.congestion-4{
 							background: #ffcf39;
 						}
-						&.congestion-5, &.congestion-6{
+						&.congestion-5, &.congestion-6, &.congestion-7, &.congestion-8{
 							background: #ff0000;
 						}
 					}
