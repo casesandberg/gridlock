@@ -31,16 +31,16 @@ Meteor.methods({
         {"roads.se.queue": carId}
       ]
     });
-    console.log(carId, intersection);
+    //console.log(carId, intersection);
     var id = intersection._id;
     var moving = intersection.moving;
     Intersections.update({_id: id}, {$push: {moving: carId}});
     _.forEach(intersection.roads, function(val, key) {
-      console.log("key: ", key, "val: ", val)
+      //console.log("key: ", key, "val: ", val)
       for (var i = 0; i < val.queue.length; i++) {
         if(val.queue[i] === carId) {
           //found the car in road!!!
-          console.log("FOUND", val.queue[i], key);
+          console.log("Pulling: ", val.queue[i], "from road: ", key);
           var quadrant = key;
           var doingSet = {};
           doingSet["roads." + quadrant + ".queue"] = carId;
@@ -63,7 +63,7 @@ Meteor.methods({
     //give car a new direction.
     var car = Cars.findOne({_id: carId});
     var intersection = Intersections.findOne({moving: carId});
-    console.log(car, intersection)
+    //console.log(car, intersection)
     var id = intersection._id;
     var moving = intersection.moving;
 
@@ -109,10 +109,10 @@ Meteor.methods({
       //add car to the road it is supposed to move to.
       var doingSet = {};
       doingSet["roads." + quadrant + ".queue"] = carId;
-      console.log("quadrent: ", quadrant, " doingSet: ", JSON.stringify(doingSet))
+      //console.log("quadrent: ", quadrant, " doingSet: ", JSON.stringify(doingSet))
       Intersections.update({_id: connectionId}, {$addToSet: doingSet});
       var connectingInter = Intersections.findOne({_id: connectionId});
-      console.log(carId, "connetionId: ", connectionId, "connectingInter: ", connectingInter);
+      //console.log(carId, "connetionId: ", connectionId, "connectingInter: ", connectingInter);
 
       //change car direction after send
       var newDir = util.randomDirection();
@@ -270,6 +270,9 @@ Meteor.methods({
     Meteor.call('testFlushIntersections');
     Meteor.call('testFlushUsers');
   },
+  testAddInt: function (intersectionId) {
+    Meteor.users.update({_id: Meteor.user()._id}, {$set: {intersectionId: intersectionId}})
+  }
   
 
 });

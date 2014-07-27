@@ -3,6 +3,37 @@ if (Meteor.isClient) {
     return "Welcome to gridlock.";
   };
 
+  Template.roads.intersection = function () {
+    if (!!Meteor.user()) {
+      return Intersections.findOne({_id: Meteor.user().intersectionId})
+    }
+  };
+  Template.intersection.moving = function () {
+    if (!!Meteor.user()) {
+      return Intersections.findOne({_id: Meteor.user().intersectionId}).moving
+    }
+  };
+  Template.carP.rendered = function() {
+    //console.log(this.data);
+    var car = Cars.findOne(this.data);
+    //console.log(car)
+    $('#'+this.data).html(JSON.stringify(car))
+    //Case: use jquery shit here to insert whatever you want for each car. 
+  }
+  Template.carS.rendered = function() {
+    //console.log(this.data);
+    var car = Cars.findOne(this.data);
+    //console.log(car)
+    $('#'+this.data).html(JSON.stringify(car))
+    //Case: use jquery shit here to insert whatever you want for each car. 
+  }
+
+  Handlebars.registerHelper('arrayify',function(obj){
+      result = [];
+      for (var key in obj) result.push({name:key,value:obj[key]});
+      return result;
+  });
+
   Template.hello.events({
     'click input': function () {
       // template data, if any, is available in 'this'
@@ -12,9 +43,16 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.car.events({
-    'click input.pull': function () {
-      
+  Template.carP.events({
+    'click input.pull': function (e, t) {
+      console.log(t.data);
+      Meteor.call('pullCar', t.data)
+    }
+  });
+  Template.carS.events({
+    'click input.send': function (e, t) {
+      console.log(t);
+      Meteor.call('sendCar', t.data);
     }
   })
 }
@@ -68,7 +106,7 @@ if (Meteor.isServer) {
         };
       };
     };
-    populateMatrix(util.masterMatrix, 0);
+    //populateMatrix(util.masterMatrix, 0);
     console.log(util.masterMatrix);
   });
 }

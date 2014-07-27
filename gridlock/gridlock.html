@@ -4,7 +4,10 @@
 
 <body>
   {{> loginButtons}}
+  <div style="float: right;">{{> intersection}}</div>
   {{> hello}}
+  {{> roads}}
+ 
 </body>
 
 <template name="hello">
@@ -13,10 +16,33 @@
   <input type="button" value="Click" />
 </template>
 
-<template name="car">
+<template name="carP">
+  CarP
+  <div id="{{this}}"></div>
   <input class="pull" type="button" value="Pull">
 </template>
 
-<template name="intersection">
+<template name="carS">
+  CarS
+  <div id="{{this}}"></div>
+  <input class="send" type="button" value="Send">
+</template>
 
+<template name="roads">
+  {{#each arrayify intersection.roads}}
+    <p>{{name}}</p>
+    {{#each value.queue}}
+      
+      {{> carP}}
+      <!-- _id: {{this}} -->
+
+    {{/each}}
+  {{/each}}
+</template>
+
+<template name="intersection">
+  
+  {{#each moving}}
+    {{> carS}}
+  {{/each}}
 </template>
