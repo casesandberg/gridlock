@@ -1,0 +1,50 @@
+@import '../baseline.less';
+
+.car{
+	margin: 5px 0 0;
+
+	width: 40px;
+	height: 40px;
+	background: #333;
+	color: #fff;
+	text-align: center;
+	line-height: 40px;
+	.font(18, 400);
+	z-index: 10;
+	position: relative;
+
+	.transition(background 200ms linear);
+	.transition(opacity 200ms linear);
+
+	&.ghost{
+		background: #fff;
+		opacity: .4;
+		position: absolute;
+		top: 20px;
+	}
+
+	&[data-skin="0"]{
+		background: url('car-0.png') center center no-repeat;
+		background-size: contain;
+	}
+
+	&[data-skin="1"]{
+		background: url('car-1.png') center center no-repeat;
+		background-size: contain;
+	}
+
+	&[data-skin="2"]{
+		background: url('car-2.png') center center no-repeat;
+		background-size: contain;
+	}
+
+	&[data-skin="3"]{
+		background: url('car-3.png') center center no-repeat;
+		background-size: contain;
+	}
+
+	&[data-skin="4"]{
+		background: url('car-8.png') center center no-repeat;
+		background-size: contain;
+	}
+}

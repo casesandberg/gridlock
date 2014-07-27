@@ -60,10 +60,11 @@ var move = {
 		var left = -((_this.offset().left - event.clientX) + 20);
 
 		if(current == 'sw'){
+
 			$('.ghost').css({
 				'left': -1*(top * Math.cos(Math.radians(-45)) + left * Math.sin(Math.radians(-45))),
 				'top': -1*(left + Math.cos(Math.radians(-45)) - top * Math.sin(Math.radians(-45))),
-				// '-webkit-transform': 'rotate(' + ((_this.offset().left - event.clientX) / (_this.offset().top - event.clientY + 40) ) * -100 + 'deg)'
+				// '-webkit-transform': 'rotate(' + ((_this.offset().left - event.clientX) / (_this.offset().top - event.clientY + 40) ) + 'deg)'
 			});
 		}
 
