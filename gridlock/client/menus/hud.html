@@ -1,0 +1,37 @@
+<template name="hud">
+
+	<div class="hud-head">
+		{{> loginButtons}}
+		{{user.name}}
+		Score: {{user.score}}
+	</div>
+
+	<ul class="hud-mini-maps">
+
+		<li class="mini-map nw-mini-map">
+
+			<span>nw</span>
+
+		</li>
+
+		<li class="mini-map ne-mini-map">
+
+			<span>ne</span>
+
+		</li>
+
+		<li class="mini-map se-mini-map">
+
+			<span>se</span>
+
+		</li>
+
+		<li class="mini-map sw-mini-map">
+
+			<span>sw</span>
+
+		</li>
+
+	</ul>
+
+</template>

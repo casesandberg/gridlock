@@ -1,0 +1,51 @@
+@import '../baseline.less';
+
+.hud-head{
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 50%;
+	width: 350px - 20;
+	margin-left: -175px;
+	background: #fff;
+	.border-radius(0 0 6px 6px);
+	padding: 10px;
+}
+
+.hud-mini-maps{
+
+	.mini-map{
+		position: absolute;
+		z-index: 10;
+
+		width: 150px;
+		height: 150px;
+		background: #fff;
+
+		span{
+
+		}
+	}
+
+	.nw-mini-map{
+		left: 0;
+		top: 0;
+		.border-radius(0 0 6px 0);
+	}
+	.ne-mini-map{
+		right: 0;
+		top: 0;
+		.border-radius(0 0 0 6px);
+	}
+	.se-mini-map{
+		right: 0;
+		bottom: 0;
+		.border-radius(6px 0 0 0);
+	}
+	.sw-mini-map{
+		left: 0;
+		bottom: 0;
+		.border-radius(0 6px 0 0);
+	}
+
+}

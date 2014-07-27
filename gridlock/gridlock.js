@@ -1,51 +1,20 @@
 if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "User:";
-  };
-  Template.hello.user = function () {
-    return Meteor.user();
-  }
-  Template.neighbors.roads = function () {
-    if (!!Meteor.user()) {
-      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads
-      console.log(roads);
-      if (!!roads.nw.connectionId) {
-        var nw = Intersections.findOne({_id: roads.nw.connectionId})
-      };
-       
-    }  
-  }
-  Template.roads.intersection = function () {
-    if (!!Meteor.user()) {
-      return Intersections.findOne({_id: Meteor.user().intersectionId})
-    }
-  };
-  Template.map.intersection = function () {
-    if (!!Meteor.user()) {
-      return Intersections.findOne({_id: Meteor.user().intersectionId})
-    }
-  };
-  Template.intersection.moving = function () {
-    if (!!Meteor.user()) {
-      var moving = Intersections.findOne({_id: Meteor.user().intersectionId}).moving;
-      console.log(moving)
-      return moving
-    }
-  };
-  Template.carP.rendered = function() {
-    //console.log(this.data);
-    var car = Cars.findOne(this.data);
-    //console.log(car)
-    $('#'+this.data).html(JSON.stringify(car))
-    //Case: use jquery shit here to insert whatever you want for each car. 
-  }
-  Template.carS.rendered = function() {
-    //console.log(this.data);
-    var car = Cars.findOne(this.data);
-    //console.log(car)
-    $('#'+this.data).html(JSON.stringify(car))
-    //Case: use jquery shit here to insert whatever you want for each car. 
-  }
+  
+
+  // Template.carP.rendered = function() {
+  //   //console.log(this.data);
+  //   var car = Cars.findOne(this.data);
+  //   //console.log(car)
+  //   $('#'+this.data).html(JSON.stringify(car))
+  //   //Case: use jquery shit here to insert whatever you want for each car. 
+  // }
+  // Template.carS.rendered = function() {
+  //   //console.log(this.data);
+  //   var car = Cars.findOne(this.data);
+  //   //console.log(car)
+  //   $('#'+this.data).html(JSON.stringify(car))
+  //   //Case: use jquery shit here to insert whatever you want for each car. 
+  // }
 
   Handlebars.registerHelper('arrayify',function(obj){
       result = [];
@@ -53,27 +22,18 @@ if (Meteor.isClient) {
       return result;
   });
 
-  Template.hello.events({
-    'click input': function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined') {
-        
-      }
-    }
-  });
-
-  Template.carP.events({
-    'click input.pull': function (e, t) {
-      console.log(t.data);
-      Meteor.call('pullCar', t.data)
-    }
-  });
-  Template.carS.events({
-    'click input.send': function (e, t) {
-      console.log(t);
-      Meteor.call('sendCar', t.data);
-    }
-  })
+  // Template.carP.events({
+  //   'click input.pull': function (e, t) {
+  //     console.log(t.data);
+  //     Meteor.call('pullCar', t.data)
+  //   }
+  // });
+  // Template.carS.events({
+  //   'click input.send': function (e, t) {
+  //     console.log(t);
+  //     Meteor.call('sendCar', t.data);
+  //   }
+  // })
 }
 
 if (Meteor.isServer) {

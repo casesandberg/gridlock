@@ -3,54 +3,6 @@
 </head>
 
 <body>
-  {{> loginButtons}}
-  <div style="float: right;">{{> intersection}}{{> neighbors}}</div>
-  {{> hello}}
-  {{> roads}}
-
+  {{> hud}}
   {{> map}}
- 
 </body>
-
-<template name="neighbors">
-  {{roads}}
-</template>
-
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  {{user.name}}
-  Score: {{user.score}}
-  <input type="button" value="Click" />
-</template>
-
-<template name="carP">
-  CarP
-  <div id="{{this}}"></div>
-  <input class="pull" type="button" value="Pull">
-</template>
-
-<template name="carS">
-  CarS
-  <div id="{{this}}"></div>
-  <input class="send" type="button" value="Send">
-</template>
-
-<template name="roads">
-  {{#each arrayify intersection.roads}}
-    <p>{{name}}</p>
-    {{#each value.queue}}
-      
-      {{> carP}}
-      <!-- _id: {{this}} -->
-
-    {{/each}}
-  {{/each}}
-</template>
-
-<template name="intersection">
-  
-  {{#each moving}}
-    {{> carS}}
-  {{/each}}
-</template>
