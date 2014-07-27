@@ -7,7 +7,7 @@ body{
 .map{
 	width: 1024px;
 	height: 768px;
-	position: absolute;
+	position: fixed;
 	left: 50%;
 	top: 50%;
 	margin-left: -1024 / 2px;
@@ -80,6 +80,14 @@ body{
 		width: 100px;
 		height: 40px;
 		background: #bbb;
+		box-shadow: 0 0 0 2px transparent;
+
+		.transition();
+
+		&.active{
+			background: #aeee00;
+			box-shadow: 0 0 0 2px #fff;
+		}
 	}		
 }
 
@@ -93,4 +101,12 @@ body{
 	text-align: center;
 	line-height: 40px;
 	.font(18, 400);
+	z-index: 10;
+	position: relative;
+
+	&.ghost{
+		opacity: .4;
+		position: absolute;
+		top: 20px;
+	}
 }
