@@ -1,3 +1,23 @@
+var util = {};
+util.styleCount = 5;
+util.directionCount = 4;
+util.randomDirection = function () {
+  var dir = Math.floor(Math.random()*util.directionCount);
+  switch(dir) {
+    case 0:
+      return "nw";
+    case 1:
+      return "ne";
+    case 2:
+      return "se";
+    case 3:
+      return "sw";
+    default:
+      return "nw";
+  };
+};
+
+
 Meteor.methods({
   pullCar: function(carId) {
     //put in moving array from inside road
@@ -21,30 +41,14 @@ Meteor.methods({
 
 
   
+  
   createAndInsertCar: function (intersectionId, quadrant) {
-    var styleCount = 5;
-    var directionCount = 4;
     chooseSkin = function () { 
-      return Math.floor(Math.random()*styleCount);
-    };
-    chooseDirection = function () {
-      var dir = Math.floor(Math.random()*directionCount);
-      switch(dir) {
-        case 0:
-          return "nw";
-        case 1:
-          return "ne";
-        case 2:
-          return "se";
-        case 3:
-          return "sw";
-        default:
-          return "nw";
-      };
+      return Math.floor(Math.random()*util.styleCount);
     };
     var car = {
       history: [intersectionId],
-      direction: chooseDirection(),
+      direction: util.randomDirection(),
       skin: chooseSkin()
     };
     var carId = Cars.insert(car);
@@ -55,9 +59,31 @@ Meteor.methods({
     });
   },
 
-  spawnCars: function (maxCars) {
+  spawnCars: function (maxCars, types) {
     // see how many cars are in the system
-    // add cars until the number reaces maxCars
+    var currentCount = Cars.find().count();
+    var tryCount = 0;
+    randomRoad = function (intersection, types) {
+      var direction = util.randomDirection();
+      if(_.contains(types, intersection.roads[direction].type)) {
+        return direction;
+      };
+      tryCount++;
+      if(tryCount > 5) {
+        randomRoad(intersection, types);
+      }
+      else {return null;};
+    };
+    // add cars to specified roadtypes until the number reaches maxCars
+    for(var i = currentCount; i < maxCars; i++) {
+      edgeIntersections = Intersections.find({$or: [{"roads.nw.type": {$in: types}}, {"roads.ne.type": {$in: types}}, {"roads.se.type": {$in: types}}, {"roads.sw.type": {$in: types}}]}).fetch()
+      randomIntersection = edgeIntersections[Math.floor(Math.random()*edgeIntersections.length)]
+      var road = randomRoad(randomIntersection, types) 
+      if(!!road) {
+        Meteor.call("createAndInsertCar", randomIntersection._id, road);
+      }
+      else {maxCars++;};
+    };
   },
 
 
@@ -73,7 +99,7 @@ Meteor.methods({
       skin: sk - 1
     });
   },
-  testAddIntersection: function() {
+  testAddIntersections: function() {
     var id1 = Intersections.insert({
       roads: {},
       moving: []
