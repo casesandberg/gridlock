@@ -86,12 +86,12 @@ if (Meteor.isServer) {
   });
   
   Accounts.onLogin(function(user){
-    console.log("jshdf");
     Meteor.call('findOrAddIntersection', function(err, id){ //give them an intersectioon 
-      console.log("inside");
-      user.intersectionId = id;
-      Intersections.update({_id: id}, {$set: {userId: user._id}});
-      return user;
+      console.log("giving user " + id);
+      console.log("user " + user.user._id);
+      userId = user.user._id
+      Meteor.users.update({_id: userId}, {$set: {intersectionId: id}});
+      Intersections.update({_id: id}, {$set: {userId: userId}});
     });
   });
 
