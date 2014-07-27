@@ -5,7 +5,16 @@ if (Meteor.isClient) {
   Template.hello.user = function () {
     return Meteor.user();
   }
-
+  Template.neighbors.roads = function () {
+    if (!!Meteor.user()) {
+      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads
+      console.log(roads);
+      if (!!roads.nw.connectionId) {
+        var nw = Intersections.findOne({_id: roads.nw.connectionId})
+      };
+       
+    }  
+  }
   Template.roads.intersection = function () {
     if (!!Meteor.user()) {
       return Intersections.findOne({_id: Meteor.user().intersectionId})
@@ -66,12 +75,16 @@ if (Meteor.isServer) {
   Accounts.onCreateUser(function(options, user) {
     console.log("FB ACCOUNT CUSTOM");
     user.score = 0;
-    user.intersectionId = "_temp"//Meteor.call('addIntersection');
     user.avatar = {"href":"_temp"};
     user.name = user.services.facebook.name;
+    Meteor.call('addIntersection', function(err, id){
+      user.intersectionId = id;
+      return user;
+    });
+    
     //give them an intersectioon
     
-    return user;
+    
   });
 
   Meteor.publish(null, function () {
@@ -86,15 +99,17 @@ if (Meteor.isServer) {
     
 
     //instantiate intersection matrix and load database into matrix
-    util.masterMatrix = [];
+    util.masterMatrix = [[]];
     var topLeftSection = Intersections.findOne({$and: [{"roads.nw.type": "edge"}, {"roads.ne.type": "edge"}]});
-    util.masterMatrix.push([topLeftSection]);
-    console.log(util.masterMatrix);
+    console.log(topLeftSection);
     //fill out row
     //create next row
     //repeat
     var populateMatrix = function (matrix, i) {
-      var nextId = _.last(matrix[i]).roads.se.connectionId;
+      var nextId = null;
+      if(!!matrix[i][0]) {
+        nextId = _.last(matrix[i]).roads.se.connectionId;
+      } 
       if(!!nextId) {
         var nextIntersection = Intersections.findOne({_id: nextId});
         matrix[i].push(nextIntersection);
@@ -112,7 +127,10 @@ if (Meteor.isServer) {
         };
       };
     };
-    //populateMatrix(util.masterMatrix, 0);
-    console.log(util.masterMatrix);
+    if(!!topLeftSection) {
+      util.masterMatrix[0].push(topLeftSection);
+      populateMatrix(util.masterMatrix, 0);
+      console.log(util.masterMatrix);
+    }; 
   });
 }
