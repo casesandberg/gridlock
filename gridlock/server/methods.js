@@ -17,6 +17,17 @@ util.randomDirection = function () {
   };
 };
 util.masterMatrix = [];
+util.newIntersection = function () {
+  return {
+    roads: {
+      nw: {queue: [], connectionId: null, type: 'edge'},
+      ne: {queue: [], connectionId: null, type: 'edge'},
+      se: {queue: [], connectionId: null, type: 'edge'},
+      sw: {queue: [], connectionId: null, type: 'edge'}
+    },
+    moving: []
+  };
+};
 
 
 Meteor.methods({
@@ -123,7 +134,53 @@ Meteor.methods({
       Cars.update({_id: carId},{$push: {history: connectionId}});
     }
   },
-  assignIntersection: function(user) {
+  addIntersection: function () { //returns intersectionId
+    var newIntersection = util.newIntersection();
+    return Intersections.insert(newIntersection, function(error, newIntersectionId){
+      newIntersection._id = newIntersectionId;
+      //if first row length > # rows, then add to beginning of new row
+      if(util.masterMatrix[0].length > util.masterMatrix.length) {
+        console.log("need a new row");
+        var aboveIntersection = _.first(_.last(util.masterMatrix)); //this updates matrix?
+        aboveIntersection.roads.sw = {queue: [], connectionId: newIntersection._id, type: "player"}; 
+        //update database
+        Intersections.update({_id: aboveIntersection._id}, {$set: {"roads.sw": aboveIntersection.roads.sw}});
+
+        newIntersection.roads.ne = {queue: [], connectionId: aboveIntersection._id, type: "player"};
+        Intersections.update({_id: newIntersection._id}, {$set: {"roads.ne": newIntersection.roads.ne}}); 
+
+        util.masterMatrix.push([newIntersection]);
+      }
+      else { //add to shortest row
+        console.log("add to shortest row");
+        shortRow = _.min(util.masterMatrix, function(row){return row.length});
+        rowPos = _.indexOf(util.masterMatrix, shortRow);
+        if(rowPos > 0) {
+          console.log("shortest row not the top");
+          if(util.masterMatrix[rowPos-1].length > shortRow.length) {
+            console.log("shortest row has overhang")
+            var aboveIntersection = util.masterMatrix[rowPos-1][shortRow.length];
+            aboveIntersection.roads.sw = {queue: [], connectionId: newIntersection._id, type: "player"}; 
+            Intersections.update({_id: aboveIntersection._id}, {$set: {"roads.sw": aboveIntersection.roads.sw}});
+            newIntersection.roads.ne = {queue: [], connectionId: aboveIntersection._id, type: "player"};
+            Intersections.update({_id: newIntersection._id}, {$set: {"roads.ne": newIntersection.roads.ne}}); 
+          };
+        };
+        if(shortRow.length > 0) {
+          console.log("shortest row has occupants");
+          var leftIntersection = _.last(shortRow);
+          leftIntersection.roads.se = {queue: [], connectionId: newIntersection._id, type: "player"}; 
+          Intersections.update({_id: leftIntersection._id}, {$set: {"roads.se": leftIntersection.roads.se}});
+          newIntersection.roads.nw = {queue: [], connectionId: leftIntersection._id, type: "player"};
+          Intersections.update({_id: newIntersection._id}, {$set: {"roads.nw": newIntersection.roads.nw}}); 
+        };
+        shortRow.push(newIntersection);
+      };
+    });
+    
+    
+  },
+  assignIntersection: function (user) {
 
   },
   createAndInsertCar: function (intersectionId, quadrant) {
@@ -190,71 +247,15 @@ Meteor.methods({
     });
   },
   testAddIntersections: function() {
-    var id1 = Intersections.insert({
-      roads: {},
-      moving: []
-    });
-    var id2 = Intersections.insert({
-      roads: {},
-      moving: []
-    });
-    var id3 = Intersections.insert({
-      roads: {},
-      moving: []
-    });
-    var id4 = Intersections.insert({
-      roads: {},
-      moving: []
-    });
-
-    Intersections.update({_id: id1}, {
-      $set: {"roads.ne": {queue: [], connectionId: id2, type: 'player'}}
-    });
-    Intersections.update({_id: id1}, {
-      $set: {"roads.nw": {queue: [], connectionId: null, type: 'edge'}}
-    });
-    Intersections.update({_id: id1}, {
-      $set: {"roads.se": {queue: [], connectionId: id4, type: 'player'}}
-    });
-    Intersections.update({_id: id1}, {
-      $set: {"roads.sw": {queue: [], connectionId: null, type: 'edge'}}
-    });
-    Intersections.update({_id: id2}, {
-      $set: {"roads.ne": {queue: [], connectionId: null, type: 'edge'}}
-    });
-    Intersections.update({_id: id2}, {
-      $set: {"roads.nw": {queue: [], connectionId: null, type: 'edge'}}
-    });
-    Intersections.update({_id: id2}, {
-      $set: {"roads.se": {queue: [], connectionId: id3, type: 'player'}}
-    });
-    Intersections.update({_id: id2}, {
-      $set: {"roads.sw": {queue: [], connectionId: id1, type: 'player'}}
-    });
-    Intersections.update({_id: id3}, {
-      $set: {"roads.ne": {queue: [], connectionId: null, type: 'edge'}}
-    });
-    Intersections.update({_id: id3}, {
-      $set: {"roads.nw": {queue: [], connectionId: id2, type: 'player'}}
-    });
-    Intersections.update({_id: id3}, {
-      $set: {"roads.se": {queue: [], connectionId: null, type: 'edge'}}
-    });
-    Intersections.update({_id: id3}, {
-      $set: {"roads.sw": {queue: [], connectionId: id4, type: 'player'}}
-    });
-    Intersections.update({_id: id4}, {
-      $set: {"roads.ne": {queue: [], connectionId: id3, type: 'player'}}
-    });
-    Intersections.update({_id: id4}, {
-      $set: {"roads.nw": {queue: [], connectionId: id1, type: 'player'}}
-    });
-    Intersections.update({_id: id4}, {
-      $set: {"roads.se": {queue: [], connectionId: null, type: 'edge'}}
-    });
-    Intersections.update({_id: id4}, {
-      $set: {"roads.sw": {queue: [], connectionId: null, type: 'edge'}}
-    });
+    var doAdd = function(i) {
+      Meteor.call("addIntersection", function(err, id){
+        console.log(id);
+        if(i < 9) {
+          Meteor.setTimeout(function(){doAdd(i+1)}, 200);
+        };
+      });
+    };
+    doAdd(0);
   },
   testFlushCars: function() {
     Cars.remove({});
@@ -269,6 +270,10 @@ Meteor.methods({
     Meteor.call('testFlushCars');
     Meteor.call('testFlushIntersections');
     Meteor.call('testFlushUsers');
+    util.masterMatrix = [[]];
+  },
+  testMasterMatrix: function () {
+    console.log(util.masterMatrix);
   },
   testAddInt: function (intersectionId) {
     Meteor.users.update({_id: Meteor.user()._id}, {$set: {intersectionId: intersectionId}})
