@@ -59,33 +59,33 @@ var move = {
 		var top = _this.offset().top - event.clientY ;
 		var left = -((_this.offset().left - event.clientX) + 20);
 
-		if(current == 'SW'){
+		if(current == 'sw'){
 			$('.ghost').css({
 				'left': -1*(top * Math.cos(Math.radians(-45)) + left * Math.sin(Math.radians(-45))),
 				'top': -1*(left + Math.cos(Math.radians(-45)) - top * Math.sin(Math.radians(-45))),
 				// '-webkit-transform': 'rotate(' + ((_this.offset().left - event.clientX) / (_this.offset().top - event.clientY + 40) ) * -100 + 'deg)'
-			})
+			});
 		}
 
-		if(current == 'NW'){
+		if(current == 'nw'){
 			$('.ghost').css({
 				'left': -1*(top * Math.cos(Math.radians(45)) + left * Math.sin(Math.radians(45))),
 				'top': -1*(left + Math.cos(Math.radians(45)) - top * Math.sin(Math.radians(45))),
-			})
+			});
 		}
 
-		if(current == 'NE'){
+		if(current == 'ne'){
 			$('.ghost').css({
 				'top': 1*(top * Math.cos(Math.radians(45)) + left * Math.sin(Math.radians(45))),
 				'left': -1*(left + Math.cos(Math.radians(45)) - top * Math.sin(Math.radians(45))),
-			})
+			});
 		}
 
-		if(current == 'SE'){
+		if(current == 'se'){
 			$('.ghost').css({
 				'left': 1*(top * Math.cos(Math.radians(45)) + left * Math.sin(Math.radians(45))),
 				'top': 1*(left + Math.cos(Math.radians(45)) - top * Math.sin(Math.radians(45))),
-			})
+			});
 		}
 	},
 	success: function(destination){
@@ -96,13 +96,13 @@ var move = {
 			$('.car').addClass('move-up');
 		};
 
-		gate.unbind('mouseenter');
+		$('.street-gate').unbind('mouseenter');
 	},
 	done: function(){
 		$('.ghost').remove();
 		$('.street-gate').removeClass('active');
 
 		car.unbind('dragend drag');
-		gate.unbind('mouseenter');
+		$('.street-gate').unbind('mouseenter');
 	}
 }
