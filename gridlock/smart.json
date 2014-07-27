@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "bower": {}
+  },
+  "bower": {
+  	"alertify": "~0.3.10"
+  }
+}

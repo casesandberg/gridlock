@@ -75,12 +75,16 @@ if (Meteor.isServer) {
   Accounts.onCreateUser(function(options, user) {
     console.log("FB ACCOUNT CUSTOM");
     user.score = 0;
-    user.intersectionId = "_temp"//Meteor.call('addIntersection');
     user.avatar = {"href":"_temp"};
     user.name = user.services.facebook.name;
+    Meteor.call('addIntersection', function(err, id){
+      user.intersectionId = id;
+      return user;
+    });
+    
     //give them an intersectioon
     
-    return user;
+    
   });
 
   Meteor.publish(null, function () {
