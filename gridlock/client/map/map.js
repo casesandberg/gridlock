@@ -115,6 +115,6 @@ var move = {
 			$('.street-gate').removeClass('active');
 		}, 600)
 
-		car.unbind('dragend drag');
+		// car.unbind('dragend drag');
 	}
 }

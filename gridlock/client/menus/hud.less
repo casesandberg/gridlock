@@ -1,5 +1,37 @@
 @import '../baseline.less';
 
+.hud-gridlock{
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,.7);
+	z-index: 12;
+	text-align: center;
+
+	.gridlock-image{
+		width: 1800px / 2;
+		height: 481px / 2;
+		background: url('gridlocked.png');
+		background-size: 100%;
+		margin: 200px auto 120px;
+	}
+
+	a{
+		height: 54px;
+		line-height: 54px;
+		.border-radius(4px);
+		background: #8d20f2;
+		color: #fff;
+		.font(18, 600);
+		padding: 0 20px;
+		display: inline-block;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+}
+
 .hud-head{
 	position: absolute;
 	z-index: 10;
