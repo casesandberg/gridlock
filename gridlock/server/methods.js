@@ -1,6 +1,7 @@
 util = {};
 util.styleCount = 5;
 util.directionCount = 4;
+util.carsPerUser = 12;
 util.randomDirection = function () {
   var dir = Math.floor(Math.random()*util.directionCount);
   switch(dir) {
@@ -25,7 +26,8 @@ util.newIntersection = function () {
       se: {queue: [], connectionId: null, type: 'edge'},
       sw: {queue: [], connectionId: null, type: 'edge'}
     },
-    moving: []
+    moving: [],
+    userId: "none"
   };
 };
 
@@ -177,11 +179,15 @@ Meteor.methods({
         shortRow.push(newIntersection);
       };
     });
-    
-    
   },
-  assignIntersection: function (user) {
-
+  findOrAddIntersection: function () {
+    openIntersection = Intersections.findOne({userId: "none"});
+    if(!!openIntersection) {
+      return openIntersection._id
+    }
+    else {
+      return Meteor.call("addIntersection");
+    };
   },
   createAndInsertCar: function (intersectionId, quadrant) {
     chooseSkin = function () { 
