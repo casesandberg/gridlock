@@ -1,6 +1,6 @@
 if (Meteor.isClient) {
   Template.hello.greeting = function () {
-    return "Welcome to gridlock.";
+    return "User:";
   };
 
   Template.roads.intersection = function () {
@@ -10,7 +10,9 @@ if (Meteor.isClient) {
   };
   Template.intersection.moving = function () {
     if (!!Meteor.user()) {
-      return Intersections.findOne({_id: Meteor.user().intersectionId}).moving
+      var moving = Intersections.findOne({_id: Meteor.user().intersectionId}).moving;
+      console.log(moving)
+      return moving
     }
   };
   Template.carP.rendered = function() {
