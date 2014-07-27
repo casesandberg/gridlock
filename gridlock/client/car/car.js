@@ -34,6 +34,10 @@ Template.car.helpers({
       car.arrow = '>';
     }
 
+    if(car.current == 'nw' && car.direction == 'se' || car.current == 'ne' && car.direction == 'sw' || car.current == 'se' && car.direction == 'nw' || car.current == 'sw' && car.direction == 'ne'){
+      car.arrow = '^';
+    }
+
     return car;
 
     }
