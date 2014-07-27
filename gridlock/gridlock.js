@@ -101,11 +101,15 @@ if (Meteor.isServer) {
     //instantiate intersection matrix and load database into matrix
     util.masterMatrix = [[]];
     var topLeftSection = Intersections.findOne({$and: [{"roads.nw.type": "edge"}, {"roads.ne.type": "edge"}]});
+    console.log(topLeftSection);
     //fill out row
     //create next row
     //repeat
     var populateMatrix = function (matrix, i) {
-      var nextId = _.last(matrix[i]).roads.se.connectionId;
+      var nextId = null;
+      if(!!matrix[i][0]) {
+        nextId = _.last(matrix[i]).roads.se.connectionId;
+      } 
       if(!!nextId) {
         var nextIntersection = Intersections.findOne({_id: nextId});
         matrix[i].push(nextIntersection);
@@ -124,9 +128,9 @@ if (Meteor.isServer) {
       };
     };
     if(!!topLeftSection) {
-      util.masterMatrix[0].push([topLeftSection]);
+      util.masterMatrix[0].push(topLeftSection);
       populateMatrix(util.masterMatrix, 0);
       console.log(util.masterMatrix);
-    }    
+    }; 
   });
 }
