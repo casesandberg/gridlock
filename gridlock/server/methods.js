@@ -270,6 +270,31 @@ Meteor.methods({
       else {maxCars++;};
     };
   },
+  spawnCar: function (types) { //number of cars for system, types of edge to populate
+    // see how many cars are in the system
+    //var currentCount = Cars.find().count();
+    var tryCount = 0;
+    randomRoad = function (intersection, types) {
+      var direction = util.randomDirection();
+      console.log(direction);
+      if(_.contains(types, intersection.roads[direction].type)) {
+        return direction;
+      };
+      tryCount++;
+      if(tryCount > 5) {
+        randomRoad(intersection, types);
+      }
+      else {return null;};
+    };
+    // add cars to specified roadtypes until the number reaches maxCars
+      edgeIntersections = Intersections.find({$or: [{"roads.nw.type": {$in: types}}, {"roads.ne.type": {$in: types}}, {"roads.se.type": {$in: types}}, {"roads.sw.type": {$in: types}}]}).fetch()
+      randomIntersection = edgeIntersections[Math.floor(Math.random()*edgeIntersections.length)]
+      
+      var road = randomRoad(randomIntersection, types) 
+      if(!!road) {
+        Meteor.call("createAndInsertCar", randomIntersection._id, road);
+      }
+  },
   testAddCar: function(){
     var dest = Math.floor((Math.random() * 4) + 1);
     var destCompass = ["NW", "SW", "SE", "NE"];
