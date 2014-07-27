@@ -45,6 +45,7 @@ if (Meteor.isServer) {
     return user;
     
   });
+  
   Accounts.onLogin(function(user) {
     userId = user.user._id;
     if(user.user.intersectionId === "none") {
