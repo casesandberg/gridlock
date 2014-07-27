@@ -19,7 +19,7 @@
 				<ul class="intersection-congestion">
 					{{#each arrayify nw.roads}}
 					<li class="congestion {{name}}-congestion">
-						<div class="congestion-{{value.queue.length}}"></div>
+						<div class="congestion-meter congestion-{{value.queue.length}}"></div>
 					</li>
 					{{/each}}
 				</ul>
@@ -41,7 +41,7 @@
 				<ul class="intersection-congestion">
 					{{#each arrayify ne.roads}}
 					<li class="congestion {{name}}-congestion">
-						<div class="congestion-{{value.queue.length}}"></div>
+						<div class="congestion-meter congestion-{{value.queue.length}}"></div>
 					</li>
 					{{/each}}
 				</ul>
@@ -63,7 +63,7 @@
 				<ul class="intersection-congestion">
 					{{#each arrayify se.roads}}
 					<li class="congestion {{name}}-congestion">
-						<div class="congestion-{{value.queue.length}}"></div>
+						<div class="congestion-meter congestion-{{value.queue.length}}"></div>
 					</li>
 					{{/each}}
 				</ul>
@@ -85,7 +85,7 @@
 				<ul class="intersection-congestion">
 					{{#each arrayify sw.roads}}
 					<li class="congestion {{name}}-congestion">
-						<div class="congestion-{{value.queue.length}}"></div>
+						<div class="congestion-meter congestion-{{value.queue.length}}"></div>
 					</li>
 					{{/each}}
 				</ul>
