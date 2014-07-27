@@ -1,6 +1,5 @@
 if (Meteor.isClient) {
   
-
   // Template.carP.rendered = function() {
   //   //console.log(this.data);
   //   var car = Cars.findOne(this.data);
