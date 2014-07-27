@@ -4,14 +4,14 @@ Template.hud.user = function () {
 
 Deps.autorun(function(){
 	if (!!Meteor.user()) {
-		$('.foo')
+    $('.hud-head').removeClass('logged-out');
 		if(Meteor.user().score === -1) {
 			$('.hud-gridlock').show();
 		} else {
 			$('.hud-gridlock').hide();
 		}	
 	} else {
-		$('.foo')
+		$('.hud-head').addClass('logged-out');
 	}
 });
 

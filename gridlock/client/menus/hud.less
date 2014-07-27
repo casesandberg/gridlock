@@ -47,9 +47,24 @@ body{
 	.border-radius(0 0 6px 6px);
 	padding: 10px;
 
+	.logged-out&{
+		
+		padding-top: 380px;
+		padding-bottom: 40px;
+		text-align: center;
+
+		#login-buttons{
+			-webkit-transform: scale(2);
+		}
+	}
+
 	.head-points{
 		float: right;
 		.transition();
+
+		.logged-out&{
+			display: none;
+		}
 
 		&.add-points{
 			-webkit-transform: scale(1.3);
