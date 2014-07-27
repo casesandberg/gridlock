@@ -7,7 +7,7 @@
 	</div>
 
 	<ul class="hud-mini-maps">
-
+  		{{#if nw}}
 		<li class="mini-map nw-mini-map">
 
 			<div class="mini-map-intersection">
@@ -17,24 +17,19 @@
 				</div>
 
 				<ul class="intersection-congestion">
-					<li class="congestion nw-congestion">
-						<div class="congestion-{{metor}} good"></div>
+					{{#each arrayify nw.roads}}
+					<li class="congestion {{name}}-congestion">
+						<div class="congestion-{{value.queue.length}}"></div>
 					</li>
-					<li class="congestion ne-congestion">
-						<div class="congestion-metor light"></div>
-					</li>
-					<li class="congestion se-congestion">
-						<div class="congestion-metor good"></div>
-					</li>
-					<li class="congestion sw-congestion">
-						<div class="congestion-metor bad"></div>
-					</li>
+					{{/each}}
 				</ul>
 
 			</div>
 
 		</li>
+		{{/if}}
 
+		{{#if ne}}
 		<li class="mini-map ne-mini-map">
 
 			<div class="mini-map-intersection">
@@ -44,24 +39,19 @@
 				</div>
 
 				<ul class="intersection-congestion">
-					<li class="congestion nw-congestion">
-						<div class="congestion-metor good"></div>
+					{{#each arrayify ne.roads}}
+					<li class="congestion {{name}}-congestion">
+						<div class="congestion-{{value.queue.length}}"></div>
 					</li>
-					<li class="congestion ne-congestion">
-						<div class="congestion-metor light"></div>
-					</li>
-					<li class="congestion se-congestion">
-						<div class="congestion-metor good"></div>
-					</li>
-					<li class="congestion sw-congestion">
-						<div class="congestion-metor bad"></div>
-					</li>
+					{{/each}}
 				</ul>
 
 			</div>
 
 		</li>
+		{{/if}}
 
+		{{#if se}}
 		<li class="mini-map se-mini-map">
 
 			<div class="mini-map-intersection">
@@ -71,24 +61,19 @@
 				</div>
 
 				<ul class="intersection-congestion">
-					<li class="congestion nw-congestion">
-						<div class="congestion-metor good"></div>
+					{{#each arrayify se.roads}}
+					<li class="congestion {{name}}-congestion">
+						<div class="congestion-{{value.queue.length}}"></div>
 					</li>
-					<li class="congestion ne-congestion">
-						<div class="congestion-metor light"></div>
-					</li>
-					<li class="congestion se-congestion">
-						<div class="congestion-metor good"></div>
-					</li>
-					<li class="congestion sw-congestion">
-						<div class="congestion-metor bad"></div>
-					</li>
+					{{/each}}
 				</ul>
 
 			</div>
 
 		</li>
+		{{/if}}
 
+		{{#if sw}}
 		<li class="mini-map sw-mini-map">
 
 			<div class="mini-map-intersection">
@@ -98,24 +83,17 @@
 				</div>
 
 				<ul class="intersection-congestion">
-					<li class="congestion nw-congestion">
-						<div class="congestion-metor good"></div>
+					{{#each arrayify sw.roads}}
+					<li class="congestion {{name}}-congestion">
+						<div class="congestion-{{value.queue.length}}"></div>
 					</li>
-					<li class="congestion ne-congestion">
-						<div class="congestion-metor light"></div>
-					</li>
-					<li class="congestion se-congestion">
-						<div class="congestion-metor good"></div>
-					</li>
-					<li class="congestion sw-congestion">
-						<div class="congestion-metor bad"></div>
-					</li>
+					{{/each}}
 				</ul>
 
 			</div>
 
 		</li>
-
+		{{/if}}
 	</ul>
 
 </template>
