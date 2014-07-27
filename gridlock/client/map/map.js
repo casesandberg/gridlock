@@ -95,7 +95,11 @@ var move = {
 		if(destination == 'NE'){
 			$('.car').addClass('move-up');
 		};
-
+		Meteor.setTimeout(function(){
+			Meteor.call('pullCar', $('.ghost').attr("data-id"))
+			Meteor.call('sendCar', $('.ghost').attr("data-id"))
+		}, 800);
+		
 		gate.unbind('mouseenter');
 	},
 	done: function(){
