@@ -57,7 +57,7 @@ var move = {
 		Math.radians = function(degrees) {
 			return degrees * Math.PI / 180;
 		};
-
+		
 		var top = _this.offset().top - event.clientY ;
 		var left = -((_this.offset().left - event.clientX) + 20);
 
