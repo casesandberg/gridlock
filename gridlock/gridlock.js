@@ -5,7 +5,16 @@ if (Meteor.isClient) {
   Template.hello.user = function () {
     return Meteor.user();
   }
-
+  Template.neighbors.roads = function () {
+    if (!!Meteor.user()) {
+      var roads =  Intersections.findOne({_id: Meteor.user().intersectionId}).roads
+      console.log(roads);
+      if (!!roads.nw.connectionId) {
+        var nw = Intersections.findOne({_id: roads.nw.connectionId})
+      };
+       
+    }  
+  }
   Template.roads.intersection = function () {
     if (!!Meteor.user()) {
       return Intersections.findOne({_id: Meteor.user().intersectionId})

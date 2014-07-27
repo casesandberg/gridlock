@@ -4,13 +4,17 @@
 
 <body>
   {{> loginButtons}}
-  <div style="float: right;">{{> intersection}}</div>
+  <div style="float: right;">{{> intersection}}{{> neighbors}}</div>
   {{> hello}}
   {{> roads}}
 
   {{> map}}
  
 </body>
+
+<template name="neighbors">
+  {{roads}}
+</template>
 
 <template name="hello">
   <h1>Hello World!</h1>
