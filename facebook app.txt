@@ -1,6 +1,3 @@
-appid: 706935049359571
-appsecret: c6c4a72bbb8df5adf15cfa5915244fb9
-
 Meteor.call('testAddIntersections')
 Intersections.find().fetch()
 Meteor.call('testAddInt', "4BGWp2i4cvghsCtaw")

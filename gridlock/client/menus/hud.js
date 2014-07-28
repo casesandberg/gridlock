@@ -36,6 +36,7 @@ Template.hud.nw = function () {
       seMerger = Intersections.findOne({_id: roads.nw.connectionId})
       var name = Meteor.users.findOne({intersectionId: seMerger._id}).name;
       console.log(name);
+      seMerger.name = name;
       console.log("nw connection found");
     }
     // console.log("merger: ", seMerger);
